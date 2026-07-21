@@ -166,7 +166,7 @@ hr{
     background-repeat: no-repeat;
     background-size: contain;
     transition: transform 1s ease, background-image 1s ease-in-out;
-    background-color: yellow;
+    background-color: rgb(255, 255, 148);
 }
 
 .night-mode-inner-button.active{
@@ -241,20 +241,61 @@ hr{
     width: 75px;
     height: 100px;
     border-radius: 10px;
-    box-shadow: 0 0 5px var(--box-shadow);
+    background: linear-gradient(45deg, #CDFFD8, #94B9FF);
 }
 
-.box-a{
-    background-color: red;
+@keyframes jump {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-20px);
+    }
 }
 
-.box-b{
-    background-color: red;
+.box-a {
+    animation: jump 3s ease-in-out infinite;
 }
 
-.box-c{
-    background-color: red;
+.box-b {
+    animation: jump 3s ease-in-out infinite;
+    animation-delay: 1s;
 }
+
+.box-c {
+    animation: jump 3s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+@keyframes slider1 {
+    0%, 80%, 100% {
+        transform: translateX(10px);
+    }
+    20%{
+        transform: translateX(0);
+    }
+}
+
+@keyframes slider2 {
+    0%, 80%, 100% {
+        transform: translateX(-10px);
+    }
+    20%{
+        transform: translateX(0);
+    }
+}
+
+.box-d {
+    animation: slider1 2s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.box-f {
+    animation: slider2 2s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+
 
 .hidden-right {
     transform: translateX(150px);
@@ -304,7 +345,6 @@ hr{
 
 .footer-section{
     padding: 10px;
-    background-color: #CDFFD8;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
