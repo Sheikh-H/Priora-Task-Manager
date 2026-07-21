@@ -1,0 +1,68 @@
+{% extends 'layout.html' %} {% block content %}
+<section class="hero-section" id="hero-section">
+  <h1>Priora</h1>
+  <p>Online Task Management Service</p>
+</section>
+<div class="space"></div>
+<div class="horizontal-line">
+  <hr />
+</div>
+<div class="space"></div>
+<section class="features-section">
+  <h1>Organise Tasks</h1>
+  <div class="all-features">
+    <div class="feature-a">
+      <div class="feature-info">
+        <h2>Feature A</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
+          sapiente similique voluptates dignissimos ullam beatae aperiam magnam
+          deserunt sequi, quidem placeat corporis hic nulla cupiditate
+          doloremque ipsam? Voluptatibus, cum ab!
+        </p>
+      </div>
+      <div>
+        <p>Animation</p>
+      </div>
+    </div>
+    <div class="feature-b">
+      <div class="feature-info">
+        <h2>Feature B</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
+          sapiente similique voluptates dignissimos ullam beatae aperiam magnam
+          deserunt sequi, quidem placeat corporis hic nulla cupiditate
+          doloremque ipsam? Voluptatibus, cum ab!
+        </p>
+      </div>
+      <div>
+        <p>Animation</p>
+      </div>
+    </div>
+    <div class="feature-c">
+      <div class="feature-info">
+        <h2>Feature C</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
+          sapiente similique voluptates dignissimos ullam beatae aperiam magnam
+          deserunt sequi, quidem placeat corporis hic nulla cupiditate
+          doloremque ipsam? Voluptatibus, cum ab!
+        </p>
+      </div>
+      <div>
+        <p>Animation</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="about-priora">
+  <div><h1>About Priora</h1></div>
+  <div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum illo
+      facere voluptatem perferendis.
+    </p>
+    <p><a href="{{ url_for('about') }}">Learn More</a></p>
+  </div>
+</section>
+{% endblock content %}

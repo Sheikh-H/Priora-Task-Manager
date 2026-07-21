@@ -10,19 +10,30 @@
     />
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='css/styles.css')}}"
+      href="{{ url_for('static', filename='css/styles.css' )}}"
     />
     <link
       rel="icon"
       type="image/x-icon"
-      href="{{url_for('static', filename='media/images/favicon.ico')}}"
+      href="{{ url_for('static', filename='media/favicon.ico' )}}"
     />
     <meta name="theme-color" content="#003700" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header>{% include '/templates/header.html' %}</header>
+    <header>{% include 'header.html' %}</header>
     <main>{% block content %}{% endblock content %}</main>
-    <footer>{% include '/templates/footer.html' %}</footer>
-    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <footer>{% include 'footer.html' %}</footer>
+    <script
+      src="{{ url_for('static', filename='js/script.js' )}}"
+      defer
+    ></script>
   </body>
 </html>

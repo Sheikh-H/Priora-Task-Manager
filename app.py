@@ -30,11 +30,17 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 Session(app)
 
 
-@app.route("/create_user", methods=["GET", "POST"])
-def create_user():
-    title = "Create New User"
-    description = "This is the create new user page - priora"
-    return render_template("", title=title, description = description)
+@app.route("/", methods=["GET"])
+def home():
+    description = "This is the home page"
+    return render_template("main/home.html", description=description)
+
+
+@app.route("/about")
+def about():
+    description = "This is the about page"
+    title = "About"
+    return render_template("main/about.html", description=description, title=title)
 
 
 if __name__ == "__main__":
