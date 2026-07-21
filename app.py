@@ -1,8 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, redirect
 from flask_session import Session
 from datetime import timedelta
+from dotenv import load_dotenv
+from services.database import initialise_database
 import secrets
 import os
+
+load_dotenv()
+
+initialise_database()
 
 app = Flask(__name__)
 
@@ -23,6 +29,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 Session(app)
 
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
