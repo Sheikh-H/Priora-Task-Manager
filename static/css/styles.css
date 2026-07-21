@@ -295,7 +295,32 @@ hr{
     animation-delay: 2s;
 }
 
+@keyframes wiggle {
+    0%{
+        transform: translateX(5px)
+    }
+    50%{
+        transform: translateX(0)
+    }
+    100%{
+        transform: translateX(5px);
+    }
 
+}
+
+.box-g {
+    animation: wiggle 0.5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+.box-h {
+    animation: wiggle 0.5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.box-i {
+    animation: wiggle 0.5s ease-in-out infinite;
+    animation-delay: 2s;
+}
 
 .hidden-right {
     transform: translateX(150px);
@@ -305,14 +330,20 @@ hr{
     transform: translateX(-150px);
 }
 
+.hidden-up{
+    transform: translateY(150px);
+}
+
 .hidden-left,
-.hidden-right {
+.hidden-right,
+.hidden-up {
     opacity: 0;
     transition: opacity 1s ease, transform 1s ease;
 }
 
 .hidden-left.show,
-.hidden-right.show {
+.hidden-right.show,
+.hidden-up.show {
     opacity: 1;
     transform: translateX(0)
 }
@@ -332,15 +363,8 @@ hr{
     gap: 25px;
 }
 
-.about-priora div:nth-child(1){
-    background: linear-gradient(90deg, #CDFFD8 0%, #94B9FF 100%);
-}
-
-.about-priora div:nth-child(2){
-    background-image: url('/static/media/paper-bg.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+.about-section{
+    height: 85vh;
 }
 
 .footer-section{

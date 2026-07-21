@@ -12,7 +12,7 @@ const observer = new IntersectionObserver(
   },
 );
 
-const elements = document.querySelectorAll(".hidden-right, .hidden-left");
+const elements = document.querySelectorAll(".hidden-right, .hidden-left, .hidden-up");
 
 elements.forEach((element) => observer.observe(element));
 
