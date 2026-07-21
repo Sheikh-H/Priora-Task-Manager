@@ -49,3 +49,25 @@ def initialise_database():
         return False
     finally:
         connection.close()
+
+
+def insert_user(user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """INSERT INTO users (first_name, last_name, username, password) VALUES (?,?,?,?);""",
+            (
+                user["fname"],
+                user["sname"],
+                user["username"],
+                user["password"],
+            ),
+        )
+        connection.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()

@@ -1,0 +1,13 @@
+:root{
+    /* use root variables to make this website to enable dark and light mode */
+    --scrollbar-color: #
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color);
+}
+
