@@ -229,14 +229,36 @@ hr{
     padding: 10px;
     background-color: #CDFFD8;
     height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.footer-top{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+}
 
+.footer-top > div {
+    border: 1px solid black;
+    width:100%;
+}
+
+.footer-bottom{
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;;
+}
 /* ==========================
    Desktop
 ========================== */
 
 @media screen and (min-width: 1000px) {
+
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .all-features{
         grid-template-columns: repeat(3, 1fr);
