@@ -1,7 +1,18 @@
+:colors{
+    --beige-color: #ffdfbd;
+    --dark-beige: #e2c0ae;
+    --light-green: #d9e9b1;
+    --light-yellow: #f2eaa0;
+    --off-white: #f7f6e6;
+}
+
 :root{
     /* use root variables to make this website to enable dark and light mode */
-    --scrollbar-color: #
+    --scrollbar-color: #e2c0ae;
+
 }
+
+
 
 *{
     box-sizing: border-box;
