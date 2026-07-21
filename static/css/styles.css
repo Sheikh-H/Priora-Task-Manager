@@ -142,10 +142,15 @@ hr{
 }
 
 .night-mode-button{
-    border: 1px solid black;
     width: 50px;
     height: 25px;
     border-radius: 50px;
+    background-color: white;
+    transition: background-color 1s ease-in-out;
+}
+
+.night-mode-button.active{
+    background-color: lightgray;
 }
 
 .night-mode-inner-button{
@@ -156,15 +161,19 @@ hr{
     justify-content: center;
     align-items: center;
     display: flex;
-    background-image: var(--night-mode-button);
+    background-image: url('/static/media/day.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    transition: transform 1s ease;
+    transition: transform 1s ease, background-image 1s ease-in-out;
+    background-color: yellow;
 }
 
 .night-mode-inner-button.active{
     transform: translateX(100%);
+    background-image: url('/static/media/night.svg');
+    transition: transform 1s ease, background-image 1s ease-in-out;
+    background-color: white;
 }
 
 .hero-section{

@@ -28,8 +28,11 @@ featureAnimations.forEach((card, index) => {
   card.style.transitionDelay = `${index * 500}ms`;
 });
 
-nightModeButton = document.querySelector(".night-mode-inner-button");
+nightModeButton = document.querySelector(".night-mode-button");
+nightModeInnerButton = document.querySelector(".night-mode-inner-button");
 
 nightModeButton.addEventListener("click", () => {
+  nightModeInnerButton.classList.toggle("active");
   nightModeButton.classList.toggle("active");
+  document.documentElement.classList.toggle("dark-mode");
 });
