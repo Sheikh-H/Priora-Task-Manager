@@ -6,6 +6,8 @@
     --hero-gradient: linear-gradient(90deg, #CDFFD8 0%, #94B9FF 100%);
     --hero-bg-mb: url('/static/media/light-bg-mobile.gif');
     --hero-bg-dk: url('/static/media/light-bg-desktop.gif');
+    --box-shadow: #4E4A44;
+    --night-mode-button: url('/static/media/day.svg');
 
     /* Text */
     --primary-text: #4E4A44;
@@ -37,6 +39,9 @@ html.dark-mode {
     --surface-secondary: #36362F;
     --hero-bg-mb: url('/static/media/dark-bg-mobile.gif');
     --hero-bg-dk: url('/static/media/dark-bg-desktop.gif');
+    --box-shadow: #F4F1E8;
+    --night-mode-button: url('/static/media/night.svg');
+
     /* Text */
     --primary-text: #F4F1E8;
     --secondary-text: #BEB8AE;
@@ -54,7 +59,6 @@ html.dark-mode {
     --scrollbar-color: #755A4B;
 }
 
-
 *{
     box-sizing: border-box;
     margin: 0;
@@ -63,13 +67,22 @@ html.dark-mode {
     scrollbar-color: var(--scrollbar-color);
 }
 
+html{
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     font-family: cursive;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6{
+    color: var(--primary-text)
 }
 
 h1 {
-    color: var(--hero-gradient);
     font-family: 'Leckerli One', cursive;
 }
 
@@ -113,6 +126,8 @@ hr{
 .nav-bar nav ul{
     display: flex;
     gap: 5px;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-bar nav ul li{
@@ -126,6 +141,31 @@ hr{
     font-weight: bold;
 }
 
+.night-mode-button{
+    border: 1px solid black;
+    width: 50px;
+    height: 25px;
+    border-radius: 50px;
+}
+
+.night-mode-inner-button{
+    border: 1px solid black;
+    height: 100%;
+    width: 50%;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-image: var(--night-mode-button);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: transform 1s ease;
+}
+
+.night-mode-inner-button.active{
+    transform: translateX(100%);
+}
 
 .hero-section{
     background-image: var(--hero-bg-mb);
@@ -172,7 +212,7 @@ hr{
     gap: 10px;
 }
 
-.feature-a{
+.feature-card{
     display: flex;
     text-align: center;
     align-items: center;
@@ -181,22 +221,50 @@ hr{
     gap: 100px;
 }
 
-.feature-b{
+.feature-animation{
+    height: 100px;
+    width: 250px;
     display: flex;
-    text-align: center;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    gap: 100px;
+    justify-content: space-between;
 }
 
-.feature-c{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    gap: 100px;
+.feature-animation > div {
+    width: 75px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--box-shadow);
+}
+
+.box-a{
+    background-color: red;
+}
+
+.box-b{
+    background-color: red;
+}
+
+.box-c{
+    background-color: red;
+}
+
+.hidden-right {
+    transform: translateX(150px);
+}
+
+.hidden-left {
+    transform: translateX(-150px);
+}
+
+.hidden-left,
+.hidden-right {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.hidden-left.show,
+.hidden-right.show {
+    opacity: 1;
+    transform: translateX(0)
 }
 
 .about-priora{
@@ -217,6 +285,7 @@ hr{
 .about-priora div:nth-child(1){
     background: linear-gradient(90deg, #CDFFD8 0%, #94B9FF 100%);
 }
+
 .about-priora div:nth-child(2){
     background-image: url('/static/media/paper-bg.png');
     background-position: center;
@@ -224,14 +293,13 @@ hr{
     background-repeat: no-repeat;
 }
 
-
 .footer-section{
     padding: 10px;
     background-color: #CDFFD8;
-    height: 20vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .footer-top{
@@ -240,16 +308,44 @@ hr{
     gap: 10px;
 }
 
+.footer-top h1 {
+    font-size: 3rem;;
+}
+
+.footer-top p {
+    font-size: 0.8rem;
+}
+
 .footer-top > div {
-    border: 1px solid black;
     width:100%;
+}
+
+.footer-top div:nth-child(1){
+    text-align: center;
+}
+
+.footer-top strong{
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Leckerli One', cursive;
+    color: var(--primary-text);
+}
+
+.footer-top div ul {
+    margin-top: 10px;
+}
+
+.footer-top div ul li{
+    list-style-type: none;
+    font-size: 0.8rem;
 }
 
 .footer-bottom{
     width: 100%;
     text-align: center;
-    font-size: 0.8rem;;
+    font-size: 0.7rem;
 }
+
 /* ==========================
    Desktop
 ========================== */
@@ -295,6 +391,10 @@ hr{
 ========================== */
 
 @media screen and (min-width: 700px) and (max-width: 999px){
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .nav-bar h1{
         font-size: 3rem;
     }
