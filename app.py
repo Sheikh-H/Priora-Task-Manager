@@ -37,7 +37,6 @@ csrf = CSRFProtect(app)
 @app.route("/", methods=["GET"])
 def home():
     description = "This is the home page"
-    flash("hello world", "error")
     return render_template("main/home.html", description=description)
 
 
@@ -55,7 +54,6 @@ def login():
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "").strip()
-        success = login_user(email, password)
     return render_template("user/login.html", title=title, description=description)
 
 

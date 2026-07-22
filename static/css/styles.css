@@ -449,8 +449,9 @@ hr{
     width: 20px;
 }
 
-.input-box:focus{
-    outline: 1px solid black;
+.input-box:focus-within{
+    outline: 0.5px solid #94B9FF;
+    border-bottom: none;
 }
 
 .login-form-box form input{
@@ -458,9 +459,10 @@ hr{
     height: 50px;
     border: none;
     width: 100%;
+    letter-spacing: 1px;
 }
 
-.login-form-box form input:focus{
+.login-form-box form input:focus-within{
     outline: none;
 }
 
@@ -478,6 +480,37 @@ hr{
 
 .login-desktop{
     display:none;
+}
+
+
+/* forms */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+form input {
+    height: 50px;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+}
+
+
+form input:focus {
+    outline: none;
+}
+
+
+form button {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background: var(--hero-gradient);
+    box-shadow: 0 0 3px var(--box-shadow);
 }
 
 /* footer */
