@@ -43,6 +43,13 @@ def about():
     return render_template("main/about.html", description=description, title=title)
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    description = "Login page"
+    title = "Login"
+    return render_template("user/login.html", title=title, description=description)
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)

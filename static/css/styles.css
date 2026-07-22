@@ -115,6 +115,7 @@ hr{
     height: 10vh;
 }
 
+/* header */
 .nav-bar{
     display: flex;
     padding: 1rem;
@@ -175,6 +176,8 @@ hr{
     transition: transform 1s ease, background-image 1s ease-in-out;
     background-color: white;
 }
+
+/* homepage */
 
 .hero-section{
     background-image: var(--hero-bg-mb);
@@ -363,10 +366,61 @@ hr{
     gap: 25px;
 }
 
+/* about page */
+
 .about-section{
     height: 85vh;
 }
 
+/* login page */
+.login-section{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-bar{
+    border: 1px solid black;
+    width: 80%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.login-page-form form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-page-form form input {
+    font-size: 1.2rem;
+    font-family: cursive;
+    padding: 5px;
+    border: none;
+    background-color: lightcyan;
+    width: 70%;
+}
+
+.login-page-form form input:focus {
+    outline: none;
+}
+
+.form-input-box{
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    background-color: lightcyan;
+    width: 70%;
+}
+
+/* footer */
 .footer-section{
     padding: 10px;
     display: flex;
@@ -424,6 +478,10 @@ hr{
 ========================== */
 
 @media screen and (min-width: 1000px) {
+    .login-bar{
+        width: 600px;
+        height: 300px;
+    }
 
     .footer-top {
         grid-template-columns: repeat(2, 1fr);
