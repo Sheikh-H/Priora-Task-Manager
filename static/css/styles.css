@@ -377,47 +377,71 @@ hr{
     height: 85vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
-.login-bar{
-    border: 1px solid black;
-    width: 80%;
+.login-box{
+    height: 100%;
+    width: 100%;
     padding: 10px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     text-align: center;
-    border-radius: 15px;
+}
+
+.login-form-box form{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.input-box{
+    background-color: white;
+    display: flex;
     align-items: center;
+    gap: 5px;
+    padding: 2px;
+    border-radius: 15px;
+    border-bottom: 0.5px solid #94B9FF;
 }
 
-.login-page-form form{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.input-box:focus{
+    outline: 1px solid black;
 }
 
-.login-page-form form input {
-    font-size: 1.2rem;
-    font-family: cursive;
-    padding: 5px;
+.login-form-box form input{
+    border-radius: 15px;
+    height: 50px;
     border: none;
-    background-color: lightcyan;
-    width: 70%;
+    width: 100%;
 }
 
-.login-page-form form input:focus {
+.login-form-box form input:focus{
     outline: none;
 }
 
-.form-input-box{
+.login-form-box form button{
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background: var(--hero-gradient);
+    box-shadow: 0 0 3px var(--box-shadow);
+}
+
+.login-mobile{
     display: flex;
-    border: 1px solid black;
-    align-items: center;
-    background-color: lightcyan;
-    width: 70%;
+}
+
+.login-desktop{
+    display:none;
 }
 
 /* footer */
@@ -478,9 +502,17 @@ hr{
 ========================== */
 
 @media screen and (min-width: 1000px) {
-    .login-bar{
-        width: 600px;
-        height: 300px;
+
+    .login-mobile{
+        display: none;
+    }
+
+    .login-desktop{
+        display: flex;
+    }
+
+    .login-box{
+        width: 50%;
     }
 
     .footer-top {
