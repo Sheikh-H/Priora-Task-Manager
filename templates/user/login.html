@@ -2,8 +2,7 @@
 <section class="login-section login-mobile hidden-right">
   <div class="login-box">
     <div class="login-form-box">
-      <a href="{{ url_for('home')}}"><h1 class="gradient-text">Priora</h1></a>
-      <h2>Login</h2>
+      <a href="{{ url_for('home')}}"><h1 class="gradient-text">Login</h1></a>
       <p><i>Login to your account</i></p>
       <form action="/login" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />

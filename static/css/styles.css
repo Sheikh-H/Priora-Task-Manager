@@ -593,6 +593,7 @@ form button {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        text-align: center;
     }
 
     .login-mobile{
@@ -604,7 +605,7 @@ form button {
     }
 
     .login-box{
-        width: 50%;
+        width: 40%;
     }
 
     .footer-top {
