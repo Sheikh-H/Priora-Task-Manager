@@ -1,11 +1,12 @@
 {% extends 'layout.html' %} {% block content %}
-<section class="login-section login-mobile">
+<section class="login-section login-mobile hidden-right">
   <div class="login-box">
     <div class="login-form-box">
       <a href="{{ url_for('home')}}"><h1 class="gradient-text">Priora</h1></a>
       <h2>Login</h2>
       <p><i>Login to your account</i></p>
       <form action="/login" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="input-box">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,14 +50,15 @@
   </div>
 </section>
 <section class="login-section login-desktop">
-  <div class="login-section-left">
+  <div class="login-section-left hidden-left">
     <a href="{{ url_for('home')}}"><h1 class="gradient-text">Priora</h1></a>
     <p>Organise your tasks and keep productive</p>
   </div>
-  <div class="login-box">
+  <div class="login-box hidden-right">
     <div class="login-form-box">
       <h2>Login</h2>
       <form action="/login" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="input-box">
           <svg
             xmlns="http://www.w3.org/2000/svg"

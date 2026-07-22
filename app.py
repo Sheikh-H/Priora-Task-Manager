@@ -1,14 +1,17 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request, session
 from flask_session import Session
+from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta
 from dotenv import load_dotenv
 from services.database import initialise_database
+from services.auth import login_user, create_user, generate_secrets
 import secrets
 import os
 
 load_dotenv()
 
 initialise_database()
+generate_secrets()
 
 app = Flask(__name__)
 
@@ -29,6 +32,8 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 Session(app)
 
+csrf = CSRFProtect(app)
+
 
 @app.route("/", methods=["GET"])
 def home():
@@ -47,6 +52,10 @@ def about():
 def login():
     description = "Login page"
     title = "Login"
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "").strip()
+        success = login_user(email, password)
     return render_template("user/login.html", title=title, description=description)
 
 

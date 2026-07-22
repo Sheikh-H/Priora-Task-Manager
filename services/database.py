@@ -20,7 +20,7 @@ def initialise_database():
                                "id"	INTEGER NOT NULL UNIQUE,
                                "first_name"	TEXT NOT NULL,
                                "last_name"	TEXT NOT NULL,
-                               "username"	TEXT NOT NULL,
+                               "email"	TEXT NOT NULL UNIQUE,
                                "password"	TEXT NOT NULL,
                                PRIMARY KEY("id" AUTOINCREMENT)
                                );
@@ -66,6 +66,26 @@ def insert_user(user):
         )
         connection.commit()
         return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def find_user(email):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM users WHERE email = ?;""",
+            (email,),
+        )
+        user = cursor.fetchone()
+        if user:
+            return user
+        else:
+            return False
     except Exception as e:
         print(e)
         return False
