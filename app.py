@@ -1,3 +1,5 @@
+from click import confirm
+
 from services.auth import login_user, create_user
 from flask import Flask, render_template, url_for, redirect, request, session, flash
 from services.config import initialise
@@ -61,7 +63,28 @@ def login():
 def register():
     description = "Sign up page"
     title = "Register an account"
-    return render_template("user/register.html", title=title, description=description)
+    error = ""
+    if request.method == "POST":
+        fname = request.form.get("fname", "").strip()
+        sname = request.form.get("sname", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "").strip()
+        confirm_password = request.form.get("confirm-password", "").strip()
+        if not fname or fname == "":
+            error = "Please enter first name!"
+        if not sname or sname == "":
+            error = "Please enter last name!"
+        if not email or email == "":
+            error = "Please enter your email!"
+        if not password or password == "":
+            error = "Please enter a password!"
+        if not confirm_password or confirm_password == "":
+            error = "Please confirm your password!"
+        if password != confirm_password:
+            error = "Password mismatch!"
+    return render_template(
+        "user/register.html", title=title, description=description, error=error
+    )
 
 
 if __name__ == "__main__":
