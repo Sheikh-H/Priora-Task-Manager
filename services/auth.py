@@ -10,8 +10,11 @@ hasher = PasswordHasher()
 
 
 def create_user(user):
+    existing_user = find_user(user['email'])
+    if existing_user:
+        return False
     try:
-        hashed_password = hasher(user["password"])
+        hashed_password = hasher.hash(user['password'])
         user["password"] = hashed_password
         success = insert_user(user)
         return success

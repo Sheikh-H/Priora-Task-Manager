@@ -482,6 +482,9 @@ hr{
     display:none;
 }
 
+.form-error p{
+    color: var(--danger)
+}
 
 /* forms */
 

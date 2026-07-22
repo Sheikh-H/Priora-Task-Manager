@@ -4,7 +4,7 @@
     <div class="login-form-box">
       <a href="{{ url_for('home')}}"><h1 class="gradient-text">Login</h1></a>
       <p><i>Login to your account</i></p>
-      <form action="/login" method="post">
+      <form action="/login" method="post" id="login-form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="input-box">
           <svg
@@ -46,6 +46,7 @@
             required
           />
         </div>
+        <div class="form-error"><p class="form-error"></p></div>
         <button type="submit">Sign In</button>
       </form>
       <p>
@@ -63,7 +64,8 @@
   <div class="login-box hidden-right">
     <div class="login-form-box">
       <h2>Login</h2>
-      <form action="/login" method="post">
+      <div><p class="form-error"></p></div>
+      <form action="/login" method="post" id="login-form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="input-box">
           <svg

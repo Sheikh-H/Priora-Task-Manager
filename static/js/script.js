@@ -45,3 +45,23 @@ setTimeout(() => {
     flash.remove();
   });
 }, 3000);
+
+const loginForms = document.querySelectorAll("#login-form");
+const registerForms = document.querySelectorAll("#register-form");
+const errorFormMessage = document.querySelectorAll(".form-error");
+
+loginForms.addEventListener("submit", function (e) {
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+
+  if (!email) {
+    e.preventDefault();
+    errorFormMessage.textContent = "Please enter your email!";
+    return;
+  }
+  if (!password) {
+    e.preventDefault();
+    errorFormMessage.textContent = "Please enter your password!";
+    return;
+  }
+});
