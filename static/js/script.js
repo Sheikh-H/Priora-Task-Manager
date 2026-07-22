@@ -63,6 +63,7 @@ loginForms.forEach((form) => {
 
     if (!password) {
       e.preventDefault();
+      
       errorFormMessage.textContent = "Please enter your password!";
       return;
     }
