@@ -63,29 +63,20 @@ def login():
 def register():
     description = "Sign up page"
     title = "Register an account"
-    error = ""
     if request.method == "POST":
         fname = request.form.get("fname", "").strip()
         sname = request.form.get("sname", "").strip()
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "").strip()
         confirm_password = request.form.get("confirm-password", "").strip()
-        new_user = {
-            "fname": fname,
-            "sname": sname,
-            "email": email,
-            "password": confirm_password,
-        }
-        success = create_user(new_user)
-        if success:
-            flash("Account Registered", "success")
-            return redirect(url_for("home"))
-        else:
-            flash("Unable to register account, try again or login", "error")
-            return redirect(url_for("register"))
-    return render_template(
-        "user/register.html", title=title, description=description, error=error
-    )
+        if fname and sname and email and password and confirm_password:
+            new_user = {
+                "fname": fname,
+                "sname": sname,
+                "email": email,
+                "password": confirm_password,
+            }
+    return render_template("user/register.html", title=title, description=description)
 
 
 if __name__ == "__main__":

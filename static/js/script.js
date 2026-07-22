@@ -46,14 +46,18 @@ setTimeout(() => {
   });
 }, 3000);
 
-const loginForms = document.querySelectorAll("#login-form");
-const registerForms = document.querySelectorAll("#register-form");
-const errorFormMessage = document.getElementById(".form-error");
+const errorFormMessage = document.querySelector(".form-error");
+const loginForm = document.querySelector("#login-form");
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-loginForms.forEach((form) => {
-  form.addEventListener("submit", function (e) {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
+    if (password.length < 15) {
+      e.preventDefault();
+      errorFormMessage.textContent =
+        "Password must be greater than 15 characters";
+    }
 
     if (!email) {
       e.preventDefault();
@@ -63,15 +67,16 @@ loginForms.forEach((form) => {
 
     if (!password) {
       e.preventDefault();
-      
       errorFormMessage.textContent = "Please enter your password!";
       return;
     }
   });
-});
+}
+const registerForm = document.querySelector("#register-form");
 
-registerForms.forEach((form) => {
-  form.addEventListener("submit", function (e) {
+if (registerForm) {
+  registerForm.addEventListener("submit", function (e) {
+    console.log("form submitted");
     const fname = document.getElementById("fname").value.trim();
     const sname = document.getElementById("sname").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -79,8 +84,6 @@ registerForms.forEach((form) => {
     const confPassword = document
       .getElementById("confirm-password")
       .value.trim();
-
-    errorFormMessage.textContent = "";
 
     if (!fname) {
       e.preventDefault();
@@ -100,6 +103,12 @@ registerForms.forEach((form) => {
       return;
     }
 
+    if (password.length < 15) {
+      e.preventDefault();
+      errorFormMessage.textContent =
+        "Password must be greater than 15 characters";
+    }
+
     if (!password) {
       e.preventDefault();
       errorFormMessage.textContent = "Please enter your password!";
@@ -112,9 +121,9 @@ registerForms.forEach((form) => {
       return;
     }
 
-    if (password.value !== confPassword.value) {
+    if (password !== confPassword) {
       e.preventDefault();
       error.textContent = "Passwords do not match.";
     }
   });
-});
+}

@@ -105,6 +105,10 @@ hr{
     color: var(--primary-text);
 }
 
+:focus-visible {
+    outline: 0.5 solid var(--primary-text);
+}
+
 .horizontal-line{
     width: 100%;
     display: flex;
@@ -481,9 +485,18 @@ hr{
     width: 100%;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+    -webkit-text-fill-color: black;
+    transition: background-color 9999s ease-in-out 0s;
+}
 
-
-
+.form-error{
+    color: var(--danger)
+}
 
 
 
