@@ -12,7 +12,9 @@ const observer = new IntersectionObserver(
   },
 );
 
-const elements = document.querySelectorAll(".hidden-right, .hidden-left, .hidden-up");
+const elements = document.querySelectorAll(
+  ".hidden-right, .hidden-left, .hidden-up",
+);
 
 elements.forEach((element) => observer.observe(element));
 
@@ -36,3 +38,10 @@ nightModeButton.addEventListener("click", () => {
   nightModeButton.classList.toggle("active");
   document.documentElement.classList.toggle("dark-mode");
 });
+
+setTimeout(() => {
+  const flashes = document.querySelectorAll(".flash");
+  flashes.forEach((flash) => {
+    flash.remove();
+  });
+}, 3000);

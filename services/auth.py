@@ -35,7 +35,7 @@ def login_user(email, password):
 
 def generate_secrets():
     secret = secrets.token_hex(32)
-    text = f"\nSECRET_KEY={secret}\n"
+    text = f"SECRET_KEY={secret}\n"
     if not os.path.exists(".env"):
         with open(".env", "w") as f:
             f.write(text)

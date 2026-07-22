@@ -1,17 +1,16 @@
-from flask import Flask, render_template, url_for, redirect, request, session
-from flask_session import Session
+from services.auth import login_user, create_user
+from flask import Flask, render_template, url_for, redirect, request, session, flash
+from services.config import initialise
 from flask_wtf.csrf import CSRFProtect
+from flask_session import Session
 from datetime import timedelta
 from dotenv import load_dotenv
-from services.database import initialise_database
-from services.auth import login_user, create_user, generate_secrets
-import secrets
+
 import os
 
 load_dotenv()
 
-initialise_database()
-generate_secrets()
+initialise()
 
 app = Flask(__name__)
 
