@@ -70,36 +70,6 @@ def register():
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "").strip()
         confirm_password = request.form.get("confirm-password", "").strip()
-        if not fname or fname == "":
-            error = "Please enter first name!"
-            return render_template(
-                "user/register.html", title=title, description=description, error=error
-            )
-        if not sname or sname == "":
-            error = "Please enter last name!"
-            return render_template(
-                "user/register.html", title=title, description=description, error=error
-            )
-        if not email or email == "":
-            error = "Please enter your email!"
-            return render_template(
-                "user/register.html", title=title, description=description, error=error
-            )
-        if not password or password == "":
-            error = "Please enter a password!"
-            return render_template(
-                "user/register.html", title=title, description=description, error=error
-            )
-        if not confirm_password or confirm_password == "":
-            error = "Please confirm your password!"
-            return render_template(
-                "user/register.html", title=title, description=description, error=error
-            )
-        if password != confirm_password:
-            error = "Password mismatch!"
-            return render_template(
-                "user/register.html", title=title, description=description, error=error
-            )
         new_user = {
             "fname": fname,
             "sname": sname,

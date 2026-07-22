@@ -48,20 +48,72 @@ setTimeout(() => {
 
 const loginForms = document.querySelectorAll("#login-form");
 const registerForms = document.querySelectorAll("#register-form");
-const errorFormMessage = document.querySelectorAll(".form-error");
+const errorFormMessage = document.getElementById(".form-error");
 
-loginForms.addEventListener("submit", function (e) {
-  const email = document.getElementById("email");
-  const password = document.getElementById("password");
+loginForms.forEach((form) => {
+  form.addEventListener("submit", function (e) {
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
 
-  if (!email) {
-    e.preventDefault();
-    errorFormMessage.textContent = "Please enter your email!";
-    return;
-  }
-  if (!password) {
-    e.preventDefault();
-    errorFormMessage.textContent = "Please enter your password!";
-    return;
-  }
+    if (!email) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your email!";
+      return;
+    }
+
+    if (!password) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your password!";
+      return;
+    }
+  });
+});
+
+registerForms.forEach((form) => {
+  form.addEventListener("submit", function (e) {
+    const fname = document.getElementById("fname").value.trim();
+    const sname = document.getElementById("sname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confPassword = document
+      .getElementById("confirm-password")
+      .value.trim();
+
+    errorFormMessage.textContent = "";
+
+    if (!fname) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your first name!";
+      return;
+    }
+
+    if (!sname) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your last name!";
+      return;
+    }
+
+    if (!email) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your email!";
+      return;
+    }
+
+    if (!password) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your password!";
+      return;
+    }
+
+    if (!confPassword) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please confirm your password!";
+      return;
+    }
+
+    if (password.value !== confPassword.value) {
+      e.preventDefault();
+      error.textContent = "Passwords do not match.";
+    }
+  });
 });
