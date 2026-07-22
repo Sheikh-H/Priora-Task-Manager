@@ -143,8 +143,8 @@ hr{
 }
 
 .night-mode-button{
-    width: 50px;
-    height: 25px;
+    width: 40px;
+    height: 20px;
     border-radius: 50px;
     background-color: white;
     transition: background-color 1s ease-in-out;
@@ -377,6 +377,8 @@ hr{
     height: 85vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-box{
@@ -386,6 +388,8 @@ hr{
     gap: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-form-box {
@@ -411,6 +415,11 @@ hr{
     padding: 2px;
     border-radius: 15px;
     border-bottom: 0.5px solid #94B9FF;
+}
+
+.input-box svg{
+    fill: #94B9FF;
+    width: 20px;
 }
 
 .input-box:focus{
@@ -503,6 +512,22 @@ hr{
 
 @media screen and (min-width: 1000px) {
 
+    .login-section{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .login-section div h1 {
+        font-size: 5rem;
+    }
+
+    .login-section-left{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     .login-mobile{
         display: none;
     }
@@ -554,6 +579,15 @@ hr{
 ========================== */
 
 @media screen and (min-width: 700px) and (max-width: 999px){
+
+    .login-form-box {
+        width: 80%;
+    }
+
+    .login-form-box h1{
+        font-size: 5rem;
+    }
+
     .footer-top {
         grid-template-columns: repeat(2, 1fr);
     }
