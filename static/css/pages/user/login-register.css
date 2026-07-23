@@ -3,8 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 85vh;
-    gap: 15px;
+    gap: 10px;
 }
 
 .register-login-section>div {
@@ -19,7 +18,7 @@
 .register-login-section form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .register-login-section form button {
@@ -35,11 +34,11 @@
 }
 
 .form-left h1 {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .form-right {
-    gap: 10px;
+    gap: 5px;
     padding: 10px;
 }
 
@@ -94,36 +93,37 @@ input:-webkit-autofill:active {
 
 
 
-
-
-
-
-
-
-
 /* ==========================
    Tablet
 ========================== */
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
+    .register-login-section{
+            height: 85vh;
+    }
+    .google-login {
+        width: 80%;
+    }
 
     .register-login-section form {
         width: 80%;
     }
 
     .form-left h1 {
-        font-size: 3rem;
+        font-size: 5rem;
     }
 
 }
-
-
 
 /* ==========================
    Desktop
 ========================== */
 
 @media screen and (min-width: 1000px) {
+
+    .google-login {
+        width: 70%;
+    }
 
     .register-login-section form {
         width: 70%;
@@ -141,10 +141,11 @@ input:-webkit-autofill:active {
     .register-login-section {
         flex-direction: row;
         gap: 0px;
+        height: 85vh;
     }
 
     .form-left h1 {
-        font-size: 5rem;
+        font-size: 7rem;
     }
 
 }

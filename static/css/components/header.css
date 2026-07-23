@@ -136,6 +136,9 @@
         list-style-type: none;
     }
 
+    .logout-button {
+        font-size: 1rem;
+    }
 }
 
 

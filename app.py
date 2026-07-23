@@ -102,12 +102,14 @@ def register():
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "").strip()
         confirm_password = request.form.get("confirm-password", "").strip()
-        if fname and sname and email and password and confirm_password:
+        memorable = request.form.get("memorable-info", "").strip().lower()
+        if fname and sname and email and password and confirm_password and memorable:
             new_user = {
                 "fname": fname,
                 "sname": sname,
                 "email": email,
                 "password": confirm_password,
+                "memorable": memorable,
             }
             user, message = create_user(new_user)
             if user:
@@ -120,6 +122,17 @@ def register():
                 flash(message, "error")
 
     return render_template("user/register.html", title=title, description=description)
+
+
+@app.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
+    title = "Password Reset"
+    description = "Reset your password on Priora"
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        memorable = request.form.get("memorable-info", "").strip().lower()
+
+    return render_template("", title=title, description=description)
 
 
 @app.route("/user/home", methods=["GET", "POST"])

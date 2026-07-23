@@ -27,7 +27,9 @@ def create_user(new_user):
         return False, "Existing user!"
     try:
         hashed_password = hasher.hash(new_user["password"])
+        memorable_hashed = hasher.hash(new_user['memorable'])
         new_user["password"] = hashed_password
+        new_user['memorable'] = memorable_hashed
         user = insert_user(new_user)
         return user, "Account created!"
     except Exception as e:

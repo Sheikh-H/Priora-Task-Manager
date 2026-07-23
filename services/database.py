@@ -23,6 +23,8 @@ def initialise_database():
                             "last_name"	TEXT NOT NULL,
                             "email"	TEXT NOT NULL UNIQUE,
                             "password"	TEXT NOT NULL,
+                            "memorable"	TEXT NOT NULL,
+                            "reset"	INTEGER NOT NULL DEFAULT 0,
                             PRIMARY KEY("id" AUTOINCREMENT)
                             );
                             """)
@@ -57,12 +59,13 @@ def insert_user(user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """INSERT INTO users (first_name, last_name, email, password) VALUES (?,?,?,?);""",
+            """INSERT INTO users (first_name, last_name, email, password, memorable) VALUES (?,?,?,?,?);""",
             (
                 user["fname"],
                 user["sname"],
                 user["email"],
                 user["password"],
+                user["memorable"],
             ),
         )
         connection.commit()

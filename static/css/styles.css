@@ -12,9 +12,9 @@
 
 @import url("pages/main/about.css");
 @import url("pages/main/home.css");
-@import url("pages/main/login-register.css");
 
 
+@import url("pages/user/login-register.css");
 @import url("pages/user/user-home.css");
 
 
