@@ -72,7 +72,7 @@ def insert_user(user):
             ),
         )
         connection.commit()
-        user = find_user(user["email"])
+        user = find_user_by_email(user["email"])
         return user
     except Exception as e:
         print(e)

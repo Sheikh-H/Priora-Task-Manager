@@ -1,6 +1,6 @@
 from services.database import (
     insert_user,
-    find_user,
+    find_user_by_email,
     reset_password,
     password_update,
     find_user_by_id,
@@ -31,8 +31,7 @@ def login_required(f):
 def password_reset_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        user = find_user_by_id(session.get("user-id"))
-        reset_req = is_reset_req(user["id"])
+        reset_req = is_reset_req(session.get("user-id"))
         if reset_req:
             return redirect(url_for("change_password"))
         return f(*args, **kwargs)
@@ -41,7 +40,7 @@ def password_reset_required(f):
 
 
 def create_user(new_user):
-    existing_user = find_user(new_user["email"])
+    existing_user = find_user_by_email(new_user["email"])
     if existing_user:
         return False, "Existing user!"
     try:
@@ -57,7 +56,7 @@ def create_user(new_user):
 
 
 def login_user(logins):
-    user = find_user(logins["email"])
+    user = find_user_by_email(logins["email"])
     if user:
         try:
             hasher.verify(user["password"], logins["password"])
@@ -70,7 +69,7 @@ def login_user(logins):
 
 
 def password_reset(logins):
-    user = find_user(logins["email"])
+    user = find_user_by_email(logins["email"])
     if user:
         try:
             hasher.verify(logins["memorable"], user["memorable"])

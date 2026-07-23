@@ -26,7 +26,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-from services.database import find_user, find_user_by_id
+from services.database import find_user_by_email, find_user_by_id
 
 load_dotenv()
 
