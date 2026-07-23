@@ -1,6 +1,7 @@
 from services.auth import login_required, login_user, create_user
 from flask import (
     Flask,
+    current_app,
     render_template,
     send_from_directory,
     url_for,
@@ -9,6 +10,8 @@ from flask import (
     session,
     flash,
     Response,
+    current_app,
+    abort,
 )
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from services.config import initialise
@@ -41,6 +44,14 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 Session(app)
 
 csrf = CSRFProtect(app)
+
+
+@app.after_request
+def security_headers(response):
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; " "script-src 'self'"
+    )
+    return response
 
 
 @app.route("/", methods=["GET"])
@@ -126,7 +137,9 @@ def logout():
 
 @app.route("/robots.txt")
 def robots():
-    return send_from_directory(app.static_folder, "robots.txt")
+    if current_app.static_folder is None:
+        abort(404)
+    return send_from_directory(current_app.static_folder, "robots.txt")
 
 
 @app.route("/sitemap.xml")
