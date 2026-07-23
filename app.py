@@ -93,7 +93,7 @@ def login():
             if user:
                 session.clear()
                 session.permanent = True
-                session["user-id"] = user["id"]
+                session["user-id"] = user["user_id"]
                 flash(message, "success")
                 return redirect(url_for("account"))
     return render_template("user/login.html", title=title, description=description)
@@ -125,7 +125,7 @@ def register():
                 session.clear()
                 session.permanent = True
                 flash(message, "success")
-                session["user-id"] = user["id"]
+                session["user-id"] = user["user_id"]
                 return redirect(url_for("account"))
             else:
                 flash(message, "error")

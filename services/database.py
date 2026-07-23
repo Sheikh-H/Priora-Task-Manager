@@ -21,32 +21,47 @@ def initialise_database():
     try:
         connection.execute("""
                         CREATE TABLE IF NOT EXISTS "users" (
-                            "id"	INTEGER NOT NULL UNIQUE,
-                            "first_name"	TEXT NOT NULL,
-                            "last_name"	TEXT NOT NULL,
+	                        "user_id"	INTEGER NOT NULL UNIQUE,
+	                        "first_name"	TEXT NOT NULL,
+	                        "last_name"	TEXT NOT NULL,
                             "email"	TEXT NOT NULL UNIQUE,
                             "password"	TEXT NOT NULL,
                             "memorable"	TEXT NOT NULL,
                             "reset"	INTEGER NOT NULL DEFAULT 0,
-                            PRIMARY KEY("id" AUTOINCREMENT)
+                            PRIMARY KEY("user_id" AUTOINCREMENT)
                             );
                             """)
         connection.commit()
-
         connection.execute("""
                         CREATE TABLE IF NOT EXISTS "tasks" (
-                            "id"	INTEGER NOT NULL UNIQUE,
+                            "task_id"	INTEGER NOT NULL UNIQUE,
                             "user_id"	INTEGER NOT NULL,
                             "title"	TEXT NOT NULL,
                             "description"	TEXT NOT NULL,
                             "due_date"	TEXT NOT NULL,
                             "due_time"	TEXT NOT NULL,
-                            "completion_date"	TEXT NOT NULL,
-                            "completion_time"	INTEGER NOT NULL,
+                            "completion_date"	TEXT,
+                            "completion_time"	TEXT,
                             "completed"	INTEGER NOT NULL DEFAULT 0,
-                            PRIMARY KEY("id" AUTOINCREMENT),
+                            PRIMARY KEY("task_id" AUTOINCREMENT),
                             FOREIGN KEY("user_id") 
-                            REFERENCES "users"("id")
+                            REFERENCES "users"("user_id")
+                            ON DELETE CASCADE
+                            );""")
+        connection.commit()
+        connection.execute("""
+                        CREATE TABLE IF NOT EXISTS "task_logs" (
+                            "log_id"	INTEGER NOT NULL UNIQUE,
+                            "task_id"	INTEGER NOT NULL,
+                            "user_id"	INTEGER NOT NULL,
+                            "date"	TEXT NOT NULL,
+                            "time"	TEXT NOT NULL,
+                            "comment"	TEXT NOT NULL,
+                            PRIMARY KEY("log_id" AUTOINCREMENT),
+                            FOREIGN KEY("task_id") 
+                            REFERENCES "tasks"("task_id"),
+                            FOREIGN KEY("user_id") 
+                            REFERENCES "users"("user_id")
                             ON DELETE CASCADE
                             );""")
         connection.commit()
@@ -106,7 +121,7 @@ def find_user_by_id(user_id):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM users WHERE id = ?;""",
+            """SELECT * FROM users WHERE user_id = ?;""",
             (user_id,),
         )
         user = cursor.fetchone()
@@ -145,7 +160,7 @@ def password_update(user_id, password):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """UPDATE users SET password = ?, reset = 0 WHERE id = ?""",
+            """UPDATE users SET password = ?, reset = 0 WHERE user_id = ?""",
             (password, user_id),
         )
         connection.commit()
@@ -166,7 +181,7 @@ def is_reset_req(user_id):
             (user_id,),
         )
         required = cursor.fetchone()
-        if required and required['reset'] == 1:
+        if required and required["reset"] == 1:
             return True
         else:
             return False
