@@ -1,4 +1,15 @@
-@import url('.css');
+@import url("base.css");
+@import url("layout.css");
+@import url("components.css");
+@import url("animations.css");
+
+@import url("pages/home.css");
+@import url("pages/about.css");
+@import url("pages/auth.css");
+@import url("pages/user.css");
+@import url("pages/error.css");
+
+@import url("responsive.css");
 /* Organise the css files into individual folders/files. */
 /* use the @import to pull the file in to styles.css */
 /* Then load the styles sheet in layout.html */

@@ -1,0 +1,152 @@
+.register-login-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    gap: 15px;
+}
+
+.register-login-section>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.register-login-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-login-section form button {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background: var(--hero-gradient);
+    box-shadow: 0 0 3px var(--box-shadow);
+}
+
+.register-login-section form {
+    width: 90%;
+}
+
+.form-left h1 {
+    font-size: 2rem;
+}
+
+.form-right {
+    gap: 10px;
+    padding: 10px;
+}
+
+.form-right h2 {
+    display: none;
+}
+
+.input-box {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px;
+    border-radius: 15px;
+    border-bottom: 0.5px solid #94B9FF;
+}
+
+.input-box svg {
+    fill: #94B9FF;
+    width: 20px;
+}
+
+.input-box:focus-within {
+    outline: 0.5px solid #94B9FF;
+    border-bottom: none;
+}
+
+.input-box input:focus {
+    outline: none;
+}
+
+.input-box input {
+    border-radius: 15px;
+    height: 50px;
+    border: none;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+    -webkit-text-fill-color: black;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+.form-error {
+    color: var(--danger);
+}
+
+
+
+
+
+
+
+
+
+
+/* ==========================
+   Tablet
+========================== */
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+
+    .register-login-section form {
+        width: 80%;
+    }
+
+    .form-left h1 {
+        font-size: 3rem;
+    }
+
+}
+
+
+
+/* ==========================
+   Desktop
+========================== */
+
+@media screen and (min-width: 1000px) {
+
+    .register-login-section form {
+        width: 70%;
+    }
+
+    .form-right {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .form-right h2 {
+        display: flex;
+    }
+
+    .register-login-section {
+        flex-direction: row;
+        gap: 0px;
+    }
+
+    .form-left h1 {
+        font-size: 5rem;
+    }
+
+}
+
+

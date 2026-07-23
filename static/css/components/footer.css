@@ -1,0 +1,83 @@
+.footer-section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+}
+
+.footer-top h1 {
+    font-size: 3rem;
+    ;
+}
+
+.footer-top p {
+    font-size: 0.8rem;
+}
+
+.footer-top>div {
+    width: 100%;
+}
+
+.footer-top div:nth-child(1) {
+    text-align: center;
+}
+
+.footer-top strong {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Leckerli One', cursive;
+    color: var(--primary-text);
+}
+
+.footer-top div ul {
+    margin-top: 10px;
+}
+
+.footer-top div ul li {
+    list-style-type: none;
+    font-size: 0.8rem;
+}
+
+.logout-button-footer {
+    font-size: 0.8rem;
+    background: none;
+    border: none;
+    color: var(--primary-text);
+    font-family: cursive;
+}
+
+.logout-button-footer:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+
+@media screen and (min-width: 1000px) {
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ==========================
+   Tablet
+========================== */
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
