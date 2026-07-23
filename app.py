@@ -88,8 +88,8 @@ def login():
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "").strip()
         if email and password:
-            login = {"email": email, "password": password}
-            user, message = login_user(login)
+            logins = {"email": email, "password": password}
+            user, message = login_user(logins)
             if user:
                 session.clear()
                 session.permanent = True
@@ -106,8 +106,8 @@ def register():
     description = "Sign up page"
     title = "Register an account"
     if request.method == "POST":
-        fname = request.form.get("fname", "").strip()
-        sname = request.form.get("sname", "").strip()
+        fname = request.form.get("fname", "").strip().lower()
+        sname = request.form.get("sname", "").strip().lower()
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "").strip()
         confirm_password = request.form.get("confirm-password", "").strip()

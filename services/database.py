@@ -166,7 +166,7 @@ def is_reset_req(user_id):
             (user_id,),
         )
         required = cursor.fetchone()
-        if required == 1:
+        if required and required['reset'] == 1:
             return True
         else:
             return False

@@ -72,9 +72,9 @@ def password_reset(logins):
     user = find_user_by_email(logins["email"])
     if user:
         try:
-            hasher.verify(logins["memorable"], user["memorable"])
+            hasher.verify(user["memorable"], logins["memorable"])
             user = reset_password(logins)
-            return user, "Memorable information correct!"
+            return user, "Correct - Please update password!"
         except Exception as e:
             print(e)
             return False, "Memorable info incorrect!"
