@@ -1,0 +1,21 @@
+@import url("base.css");
+@import url("animations.css");
+
+
+@import url("components/flash.css");
+@import url("components/header.css");
+@import url("components/footer.css");
+
+
+@import url("pages/error/error.css");
+
+
+@import url("pages/main/about.css");
+@import url("pages/main/home.css");
+@import url("pages/main/login-register.css");
+
+
+@import url("pages/user/user-home.css");
+
+
+/* @import url("responsive.css"); */

@@ -1,0 +1,144 @@
+:root {
+    /* Backgrounds */
+    --bg-color: #F7F6E6;
+    --surface-color: #FFFFFF;
+    --surface-secondary: #FFF8EF;
+    --hero-gradient: linear-gradient(90deg, #CDFFD8 0%, #94B9FF 100%);
+    --hero-bg-mb: url('/static/media/light-bg-mobile.gif');
+    --hero-bg-dk: url('/static/media/light-bg-desktop.gif');
+    --box-shadow: #4E4A44;
+    --night-mode-button: url('/static/media/day.svg');
+
+    /* Text */
+    --primary-text: #4E4A44;
+    --secondary-text: #7A746C;
+
+    /* Accents */
+    --accent-peach: #FFDFBD;
+    --accent-beige: #E2C0AE;
+    --accent-green: #D9E9B1;
+    --accent-yellow: #F2EAA0;
+
+    /* Borders */
+    --border-color: #E7DFC9;
+
+    /* Scrollbar */
+    --scrollbar-color: #E2C0AE;
+
+    /* States */
+    --success: #B8D98A;
+    --warning: #F2EAA0;
+    --danger: #E79A9A;
+    --info: #AFCFEA;
+}
+
+html.dark-mode {
+    /* Backgrounds */
+    --bg-color: #1F1F1C;
+    --surface-color: #2B2B26;
+    --surface-secondary: #36362F;
+    --hero-bg-mb: url('/static/media/dark-bg-mobile.gif');
+    --hero-bg-dk: url('/static/media/dark-bg-desktop.gif');
+    --box-shadow: #F4F1E8;
+    --night-mode-button: url('/static/media/night.svg');
+
+    /* Text */
+    --primary-text: #F4F1E8;
+    --secondary-text: #BEB8AE;
+
+    /* Accents */
+    --accent-peach: #C89C73;
+    --accent-beige: #A98A78;
+    --accent-green: #8DA56C;
+    --accent-yellow: #B7AC63;
+
+    /* Borders */
+    --border-color: #4A4842;
+
+    /* Scrollbar */
+    --scrollbar-color: #755A4B;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color);
+}
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: cursive;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-text)
+}
+
+h1 {
+    font-family: 'Leckerli One', cursive;
+}
+
+p {
+    color: var(--secondary-text);
+    font-family: cursive;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-text)
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+hr {
+    width: 30%;
+    color: var(--primary-text);
+}
+
+:focus-visible {
+    outline: 0.5 solid var(--primary-text);
+}
+
+.horizontal-line {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.space {
+    height: 10vh;
+}
+
+
+/* ==========================
+   Tablet
+========================== */
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+    
+}
+
+/* ==========================
+   Desktop
+========================== */
+
+@media screen and (min-width: 1000px) {
+
+}
+
+

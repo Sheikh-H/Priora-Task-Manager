@@ -1,0 +1,141 @@
+/* header */
+.nav-bar {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-bar nav ul {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-bar nav ul li {
+    list-style-type: none;
+    font-family: cursive;
+    font-size: 0.8rem;
+}
+
+.nav-bar nav ul li a {
+    color: var(--primary-text);
+    font-weight: bold;
+}
+
+.night-mode-button {
+    width: 40px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: white;
+    transition: background-color 1s ease-in-out;
+}
+
+.night-mode-button.active {
+    background-color: lightgray;
+}
+
+.night-mode-inner-button {
+    border: 1px solid black;
+    height: 100%;
+    width: 50%;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-image: url('/static/media/day.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: transform 1s ease, background-image 1s ease-in-out;
+    background-color: rgb(255, 255, 148);
+}
+
+.night-mode-inner-button.active {
+    transform: translateX(100%);
+    background-image: url('/static/media/night.svg');
+    transition: transform 1s ease, background-image 1s ease-in-out;
+    background-color: white;
+}
+
+
+.logout-button {
+    border: none;
+    background: none;
+    color: var(--primary-text);
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.logout-button:hover {
+    cursor: pointer;
+}
+
+
+
+/* ==========================
+   Tablet
+========================== */
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+
+    .logout-button {
+        font-size: 1rem;
+    }
+
+    .nav-bar h1 {
+        font-size: 3rem;
+    }
+
+    .nav-bar nav ul li {
+        font-size: 1rem;
+    }
+
+    .nav-bar {
+        display: flex;
+        padding: 1rem;
+        justify-content: space-between;
+    }
+
+    .nav-bar nav ul {
+        display: flex;
+        gap: 10px;
+    }
+
+    .nav-bar nav ul li {
+        list-style-type: none;
+    }
+
+}
+
+/* ==========================
+   Desktop
+========================== */
+
+@media screen and (min-width: 1000px) {
+
+    .nav-bar nav ul li {
+        font-size: 1rem;
+    }
+
+    .nav-bar {
+        display: flex;
+        padding: 1rem;
+        justify-content: space-between;
+    }
+
+    .nav-bar nav ul {
+        display: flex;
+        gap: 10px;
+    }
+
+    .nav-bar nav ul li {
+        list-style-type: none;
+    }
+
+}
+
+
