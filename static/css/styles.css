@@ -219,13 +219,28 @@ hr{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
     height: 89vh;
+    gap: 20px;
+}
+
+.home-login-button{
+    border-radius: 7px;
+    width: 100px;
+    padding: 5px;
+    background: var(--hero-gradient);
+    box-shadow: 0 0 5px var(--box-shadow);
+    color: black;
+    font-weight: bold;
 }
 
 .hero-section h1 {
     font-size: 5rem;
-    color: var(--primary-text);
+    background: linear-gradient(0deg, #CDFFD8, #94B9FF);    
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .gradient-text {
@@ -523,6 +538,111 @@ input:-webkit-autofill:active {
     text-align: center;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================
+   Desktop
+========================== */
+
+.footer-section {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+}
+
+.footer-top h1 {
+    font-size: 3rem;
+    ;
+}
+
+.footer-top p {
+    font-size: 0.8rem;
+}
+
+.footer-top>div {
+    width: 100%;
+}
+
+.footer-top div:nth-child(1) {
+    text-align: center;
+}
+
+.footer-top strong {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Leckerli One', cursive;
+    color: var(--primary-text);
+}
+
+.footer-top div ul {
+    margin-top: 10px;
+}
+
+.footer-top div ul li {
+    list-style-type: none;
+    font-size: 0.8rem;
+}
+
+.logout-button-footer {
+    font-size: 0.8rem;
+    background: none;
+    border: none;
+    color: var(--primary-text);
+    font-family: cursive;
+}
+
+.logout-button-footer:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+.error-section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    height: 85vh;
+}
+
+
 /* ==========================
    Desktop
 ========================== */
@@ -535,6 +655,7 @@ input:-webkit-autofill:active {
     .register-login-section form {
         width: 70%;
     }
+    
     .form-right{
         justify-content: flex-start;
         align-items: flex-start;
@@ -583,6 +704,11 @@ input:-webkit-autofill:active {
         background-image: var(--hero-bg-dk);
         height: 87vh;
         background-size: contain;
+        gap: 50px;
+    }
+
+    .hero-section h1{
+        font-size: 7rem;
     }
 
     .flash-container {
@@ -627,7 +753,6 @@ input:-webkit-autofill:active {
 
     .hero-section h1 {
         font-size: 7rem;
-        color: var(--primary-text);
     }
 
     .nav-bar {
@@ -650,6 +775,7 @@ input:-webkit-autofill:active {
         background-size: cover;
         height: 92vh;
     }
+
     .flash {
         font-size: 1.2rem;
     }
@@ -657,81 +783,4 @@ input:-webkit-autofill:active {
     .flash-container {
         top: 100px;
     }
-}
-
-/* footer */
-.footer-section {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.footer-top {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
-}
-
-.footer-top h1 {
-    font-size: 3rem;
-    ;
-}
-
-.footer-top p {
-    font-size: 0.8rem;
-}
-
-.footer-top > div {
-    width: 100%;
-}
-
-.footer-top div:nth-child(1) {
-    text-align: center;
-}
-
-.footer-top strong {
-    font-size: 1rem;
-    font-weight: bold;
-    font-family: 'Leckerli One', cursive;
-    color: var(--primary-text);
-}
-
-.footer-top div ul {
-    margin-top: 10px;
-}
-
-.footer-top div ul li {
-    list-style-type: none;
-    font-size: 0.8rem;
-}
-
-.logout-button-footer{
-    font-size: 0.8rem;
-    background: none;
-    border: none;
-    color: var(--primary-text);
-    font-family: cursive;
-}
-
-.logout-button-footer:hover{
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.footer-bottom {
-    width: 100%;
-    text-align: center;
-    font-size: 0.7rem;
-}
-
-.error-section {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    height: 85vh;
 }

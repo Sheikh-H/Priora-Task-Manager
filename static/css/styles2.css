@@ -1,0 +1,6 @@
+@import url('.css');
+/* Organise the css files into individual folders/files. */
+/* use the @import to pull the file in to styles.css */
+/* Then load the styles sheet in layout.html */
+/* Keep the media queries to each file as this would make it easier to code in mobile layouts.  */
+/* once media queries are complete. Merge them into one file and load following this style */
