@@ -10,7 +10,6 @@ from flask import (
     session,
     flash,
     Response,
-    current_app,
     abort,
 )
 from flask_wtf.csrf import CSRFProtect, CSRFError
