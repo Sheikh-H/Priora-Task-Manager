@@ -48,7 +48,10 @@ csrf = CSRFProtect(app)
 @app.after_request
 def security_headers(response):
     response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; " "script-src 'self'"
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com;"
     )
     return response
 
