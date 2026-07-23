@@ -61,12 +61,13 @@ def insert_user(user):
             (
                 user["fname"],
                 user["sname"],
-                user["username"],
+                user["email"],
                 user["password"],
             ),
         )
         connection.commit()
-        return True
+        user = find_user(user["email"])
+        return user
     except Exception as e:
         print(e)
         return False

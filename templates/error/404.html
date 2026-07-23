@@ -1,0 +1,7 @@
+{% extends 'layout.html' %} {% block content %}
+<section id="error-section" class="error-section">
+  <h1>404 - Not Found!</h1>
+  <p>Oops! Looks like this page doesn't exist.</p>
+  <a href="{{url_for('home')}}">Return Home</a>
+</section>
+{% endblock content %}
