@@ -495,16 +495,43 @@ input:-webkit-autofill:active {
 }
 
 .form-error{
-    color: var(--danger)
+    color: var(--danger);
 }
 
+.logout-button{
+    border: none;
+    background: none;
+    color: var(--primary-text);
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
 
+.logout-button:hover{
+    cursor: pointer;
+}
+
+/* user - home */
+
+.user-home-section{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-home-section h1{
+    text-align: center;
+}
 
 /* ==========================
    Desktop
 ========================== */
 
 @media screen and (min-width: 1000px) {
+    .logout-button {
+        font-size: 1rem;
+    }
+
     .register-login-section form {
         width: 70%;
     }
@@ -573,12 +600,18 @@ input:-webkit-autofill:active {
 ========================== */
 
 @media screen and (min-width: 700px) and (max-width: 999px){
-.register-login-section form {
+
+    .logout-button {
+        font-size: 1rem;
+    }
+
+    .register-login-section form {
         width: 80%;
     }
+
     .form-left h1 {
-            font-size: 3rem;
-        }
+        font-size: 3rem;
+    }
 
     .footer-top {
         grid-template-columns: repeat(2, 1fr);
@@ -650,7 +683,7 @@ input:-webkit-autofill:active {
     font-size: 0.8rem;
 }
 
-.footer-top>div {
+.footer-top > div {
     width: 100%;
 }
 
@@ -674,8 +707,31 @@ input:-webkit-autofill:active {
     font-size: 0.8rem;
 }
 
+.logout-button-footer{
+    font-size: 0.8rem;
+    background: none;
+    border: none;
+    color: var(--primary-text);
+    font-family: cursive;
+}
+
+.logout-button-footer:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .footer-bottom {
     width: 100%;
     text-align: center;
     font-size: 0.7rem;
+}
+
+.error-section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    height: 85vh;
 }

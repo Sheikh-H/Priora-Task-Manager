@@ -5,9 +5,20 @@
   <div>
     <nav>
       <ul>
+        {% if session.get('user-id') %}
+        <li><a href="{{ url_for('account') }}">Account</a></li>
+        <li><a href="{{ url_for('home') }}">Tasks</a></li>
+        <li>
+          <form action="{{ url_for('logout') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <input type="submit" value="Logout" class="logout-button" />
+          </form>
+        </li>
+        {% else %}
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('about') }}">About</a></li>
-        <li><a href="{{url_for('login')}}">Login/Register</a></li>
+        <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+        {% endif %}
         <li>
           <div class="night-mode-button">
             <div class="night-mode-inner-button"></div>

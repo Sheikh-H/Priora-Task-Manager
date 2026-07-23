@@ -53,10 +53,10 @@ if (loginForm) {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
-    if (password.length < 15) {
+    if (password.length < 10) {
       e.preventDefault();
       errorFormMessage.textContent =
-        "Password must be greater than 15 characters";
+        "Password must be greater than 10 characters";
     }
 
     if (!email) {
@@ -76,7 +76,6 @@ const registerForm = document.querySelector("#register-form");
 
 if (registerForm) {
   registerForm.addEventListener("submit", function (e) {
-    console.log("form submitted");
     const fname = document.getElementById("fname").value.trim();
     const sname = document.getElementById("sname").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -103,10 +102,10 @@ if (registerForm) {
       return;
     }
 
-    if (password.length < 15) {
+    if (password.length < 10) {
       e.preventDefault();
       errorFormMessage.textContent =
-        "Password must be greater than 15 characters";
+        "Password must be greater than 10 characters";
     }
 
     if (!password) {

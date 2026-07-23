@@ -13,12 +13,21 @@
       <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('about') }}">About</a></li>
+        {% if session.get('user-id') %}
+        <li>
+          <form action="{{ url_for('logout') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <input type="submit" value="Logout" class="logout-button-footer" />
+          </form>
+        </li>
+        {% else %}
         <li><a href="{{url_for('login')}}">Login</a></li>
         <li><a href="{{ url_for('register')}}">Register</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>Made with Flask, Python, and SQLite3</p>
+    <p>© 2026 Priora - Made with Flask, Python, and SQLite3.</p>
   </div>
 </section>

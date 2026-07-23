@@ -57,7 +57,7 @@ def insert_user(user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """INSERT INTO users (first_name, last_name, username, password) VALUES (?,?,?,?);""",
+            """INSERT INTO users (first_name, last_name, email, password) VALUES (?,?,?,?);""",
             (
                 user["fname"],
                 user["sname"],

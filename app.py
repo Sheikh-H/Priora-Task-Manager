@@ -58,6 +58,8 @@ def about():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if session.get("user-id"):
+        return redirect(url_for("account"))
     description = "Login page"
     title = "Login"
     if request.method == "POST":
@@ -66,14 +68,19 @@ def login():
         if email and password:
             login = {"email": email, "password": password}
             user, message = login_user(login)
-            flash(message)
             if user:
-                return redirect(url_for("user_home"))
+                session.clear()
+                session.permanent = True
+                session["user-id"] = user["id"]
+                flash(message, "success")
+                return redirect(url_for("account"))
     return render_template("user/login.html", title=title, description=description)
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if session.get("user-id"):
+        return redirect(url_for("account"))
     description = "Sign up page"
     title = "Register an account"
     if request.method == "POST":
@@ -97,15 +104,24 @@ def register():
                 session["user-id"] = user["id"]
                 return redirect(url_for("account"))
             else:
-                flash(message, category="error")
+                flash(message, "error")
+
     return render_template("user/register.html", title=title, description=description)
 
 
 @app.route("/user/home", methods=["GET", "POST"])
 @login_required
-def user_home():
+def account():
     title = "Welcome Back!"
     return render_template("user/home.html", title=title)
+
+
+@app.route("/logout", methods=["POST"])
+@login_required
+def logout():
+    session.clear()
+    flash("Logout successful!", "success")
+    return redirect(url_for("home"))
 
 
 @app.route("/robots.txt")
