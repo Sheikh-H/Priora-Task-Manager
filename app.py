@@ -1,4 +1,4 @@
-from services.auth import login_required, login_user, create_user
+from services.auth import login_required, login_user, create_user, password_reset
 from flask import (
     Flask,
     current_app,
@@ -131,8 +131,27 @@ def reset_password():
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
         memorable = request.form.get("memorable-info", "").strip().lower()
+        user = {"email": email, "memorable": memorable}
+        user_changed, message = password_reset(user)
+        if user_changed:
+            session.clear()
+            session.permanent = True
+            session['user_id'] = user_changed['id']
+            flash(message, "success")
+            return redirect(url_for("change_password"))
+    return render_template(
+        "user/forgot-password.html", title=title, description=description
+    )
 
-    return render_template("", title=title, description=description)
+
+@app.route("/change-password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    title = "Change password"
+    if request.method == "POST":
+        new_password = request.form.get('password', "").strip()
+        conf_password = request.form.get('password', "").strip()
+    return render_template("/user/new_password.html")
 
 
 @app.route("/user/home", methods=["GET", "POST"])

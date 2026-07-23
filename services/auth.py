@@ -1,4 +1,4 @@
-from services.database import insert_user, find_user
+from services.database import insert_user, find_user, reset_password
 from flask import session, redirect, url_for
 from argon2 import PasswordHasher
 from dotenv import load_dotenv
@@ -27,9 +27,9 @@ def create_user(new_user):
         return False, "Existing user!"
     try:
         hashed_password = hasher.hash(new_user["password"])
-        memorable_hashed = hasher.hash(new_user['memorable'])
+        memorable_hashed = hasher.hash(new_user["memorable"])
         new_user["password"] = hashed_password
-        new_user['memorable'] = memorable_hashed
+        new_user["memorable"] = memorable_hashed
         user = insert_user(new_user)
         return user, "Account created!"
     except Exception as e:
@@ -46,6 +46,20 @@ def login_user(logins):
         except Exception as e:
             print(e)
             return False, "Incorrect Password!"
+    else:
+        return False, "No account, please register!"
+
+
+def password_reset(logins):
+    user = find_user(logins["email"])
+    if user:
+        try:
+            hasher.verify(logins["memorable"], user["memorable"])
+            user = reset_password(logins)
+            return user, "Memorable information correct!"
+        except Exception as e:
+            print(e)
+            return False, "Memorable info incorrect!"
     else:
         return False, "No account, please register!"
 

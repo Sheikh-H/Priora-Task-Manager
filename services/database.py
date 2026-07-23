@@ -1,8 +1,13 @@
-import sqlite3
 from dotenv import load_dotenv
+from argon2 import PasswordHasher
+import sqlite3
+import random
+import string
 import os
 
 load_dotenv()
+
+hasher = PasswordHasher()
 
 
 def connect_database():
@@ -91,6 +96,44 @@ def find_user(email):
             return user
         else:
             return False
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def reset_password(user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """UPDATE users SET reset = 1 WHERE email = ?;""",
+            (user["email"],),
+        )
+        connection.commit()
+        gen_pass = "".join(random.choices(string.ascii_lowercase, k=10))
+        hash_gen = hasher.hash(gen_pass)
+        cursor.execute(
+            """UPDATE users SET password = ? WHERE email = ?;""",
+            (hash_gen, user["email"]),
+        )
+        connection.commit()
+        cursor.execute("""SELECT * FROM users WHERE email = ?;""", (user['email'],),)
+        user = cursor.fetchone()
+        return user
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+def password_update(user_id, password):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        hashed = hasher.hash(password)
+        cursor.execute("""UPDATE users SET password = ? WHERE id = ?""", (hashed, user_id),)
     except Exception as e:
         print(e)
         return False
