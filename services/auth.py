@@ -3,7 +3,6 @@ from services.database import (
     find_user_by_email,
     reset_password,
     password_update,
-    find_user_by_id,
     is_reset_req,
 )
 from flask import session, redirect, url_for
