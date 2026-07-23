@@ -45,25 +45,47 @@ def initialise_database():
                             "completed"	INTEGER NOT NULL DEFAULT 0,
                             PRIMARY KEY("task_id" AUTOINCREMENT),
                             FOREIGN KEY("user_id") 
-                            REFERENCES "users"("user_id")
-                            ON DELETE CASCADE
+                                REFERENCES "users"("user_id")
+                                ON DELETE CASCADE
                             );""")
         connection.commit()
         connection.execute("""
                         CREATE TABLE IF NOT EXISTS "task_logs" (
                             "log_id"	INTEGER NOT NULL UNIQUE,
                             "task_id"	INTEGER NOT NULL,
-                            "user_id"	INTEGER NOT NULL,
+                            "user_id"   INTEGER NOT NULL,
                             "date"	TEXT NOT NULL,
                             "time"	TEXT NOT NULL,
                             "comment"	TEXT NOT NULL,
                             PRIMARY KEY("log_id" AUTOINCREMENT),
                             FOREIGN KEY("task_id") 
-                            REFERENCES "tasks"("task_id"),
-                            FOREIGN KEY("user_id") 
-                            REFERENCES "users"("user_id")
-                            ON DELETE CASCADE
+                                REFERENCES "tasks"("task_id")
+                                ON DELETE CASCADE,
+                            FOREIGN KEY ("user_id")
+                                REFERENCES "users"("user_id")
+                                ON DELETE CASCADE
                             );""")
+        connection.commit()
+        connection.execute("""
+                        CREATE INDEX IF NOT EXISTS idx_tasks_user
+                        ON tasks(user_id);
+                        """)
+        connection.execute("""
+                        CREATE INDEX IF NOT EXISTS idx_tasks_completed
+                        ON tasks(completed);
+                        """)
+        connection.execute("""
+                        CREATE INDEX IF NOT EXISTS idx_tasks_due_date
+                        ON tasks(due_date);
+                        """)
+        connection.execute("""
+                        CREATE INDEX IF NOT EXISTS idx_task_logs_task
+                        ON task_logs(task_id);
+                        """)
+        connection.execute("""
+                        CREATE INDEX IF NOT EXISTS idx_task_logs_user
+                        ON task_logs(user_id);
+                        """)
         connection.commit()
     except Exception as e:
         print(e)
