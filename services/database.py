@@ -81,7 +81,7 @@ def insert_user(user):
         connection.close()
 
 
-def find_user(email):
+def find_user_by_email(email):
     connection = connect_database()
     cursor = connection.cursor()
     try:
@@ -101,6 +101,23 @@ def find_user(email):
         connection.close()
 
 
+def find_user_by_id(user_id):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM users WHERE id = ?;""",
+            (user_id,),
+        )
+        user = cursor.fetchone()
+        return user
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
 def reset_password(user):
     connection = connect_database()
     cursor = connection.cursor()
@@ -110,7 +127,10 @@ def reset_password(user):
             (user["email"],),
         )
         connection.commit()
-        cursor.execute("""SELECT * FROM users WHERE email = ?;""", (user['email'],),)
+        cursor.execute(
+            """SELECT * FROM users WHERE email = ?;""",
+            (user["email"],),
+        )
         user = cursor.fetchone()
         return user
     except Exception as e:
@@ -119,13 +139,37 @@ def reset_password(user):
     finally:
         connection.close()
 
+
 def password_update(user_id, password):
     connection = connect_database()
     cursor = connection.cursor()
     try:
-        cursor.execute("""UPDATE users SET password = ? AND reset = 0 WHERE id = ?""", (password, user_id),)
+        cursor.execute(
+            """UPDATE users SET password = ?, reset = 0 WHERE id = ?""",
+            (password, user_id),
+        )
         connection.commit()
         return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def is_reset_req(user_id):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT reset FROM users WHERE id = ?;""",
+            (user_id,),
+        )
+        required = cursor.fetchone()
+        if required == 1:
+            return True
+        else:
+            return False
     except Exception as e:
         print(e)
         return False

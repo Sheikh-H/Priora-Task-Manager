@@ -1,4 +1,11 @@
-from services.database import insert_user, find_user, reset_password, password_update
+from services.database import (
+    insert_user,
+    find_user,
+    reset_password,
+    password_update,
+    find_user_by_id,
+    is_reset_req,
+)
 from flask import session, redirect, url_for
 from argon2 import PasswordHasher
 from dotenv import load_dotenv
@@ -16,6 +23,18 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if session.get("user-id") is None:
             return redirect(url_for("login"))
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+def password_reset_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user = find_user_by_id(session.get("user-id"))
+        reset_req = is_reset_req(user["id"])
+        if reset_req:
+            return redirect(url_for("change_password"))
         return f(*args, **kwargs)
 
     return decorated_function

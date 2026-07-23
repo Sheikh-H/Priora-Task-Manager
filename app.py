@@ -4,6 +4,7 @@ from services.auth import (
     create_user,
     password_reset,
     password_change,
+    password_reset_required,
 )
 from flask import (
     Flask,
@@ -25,7 +26,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-from services.database import find_user
+from services.database import find_user, find_user_by_id
 
 load_dotenv()
 
@@ -41,7 +42,7 @@ app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_SAMESITE="LAX",
-    PERMANENT_SESSION_LIFETIME=timedelta(minutes=15),
+    PERMANENT_SESSION_LIFETIME=timedelta(hours=1),
 )
 
 
@@ -128,7 +129,6 @@ def register():
                 return redirect(url_for("account"))
             else:
                 flash(message, "error")
-
     return render_template("user/register.html", title=title, description=description)
 
 
@@ -148,7 +148,7 @@ def reset_password():
             flash(message, "success")
             return redirect(url_for("change_password"))
         else:
-            flash(message, 'error')
+            flash(message, "error")
     return render_template(
         "user/forgot-password.html", title=title, description=description
     )
@@ -160,7 +160,7 @@ def change_password():
     title = "Change password"
     if request.method == "POST":
         new_password = request.form.get("password", "").strip()
-        conf_password = request.form.get("password", "").strip()
+        conf_password = request.form.get("confirm-password", "").strip()
         if new_password != conf_password:
             flash("Password mismatch", "error")
             return redirect(url_for("change_password"))
@@ -175,20 +175,17 @@ def change_password():
 
 @app.route("/user/home", methods=["GET", "POST"])
 @login_required
+@password_reset_required
 def account():
     title = "Welcome Back!"
-    user = find_user(session.get('user-id'))
-    if user['reset'] == 1:
-        return redirect(url_for('change_password'))
+    user = find_user_by_id(session.get("user-id"))
     return render_template("user/home.html", title=title)
 
 
 @app.route("/logout", methods=["POST"])
 @login_required
+@password_reset_required
 def logout():
-    user = find_user(session.get('user-id'))
-    if user['reset'] == 1:
-        return redirect(url_for('change_password'))
     session.clear()
     flash("Logout successful!", "success")
     return redirect(url_for("home"))
