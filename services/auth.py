@@ -1,4 +1,4 @@
-from services.database import insert_user, find_user, reset_password
+from services.database import insert_user, find_user, reset_password, password_update
 from flask import session, redirect, url_for
 from argon2 import PasswordHasher
 from dotenv import load_dotenv
@@ -62,6 +62,19 @@ def password_reset(logins):
             return False, "Memorable info incorrect!"
     else:
         return False, "No account, please register!"
+
+
+def password_change(user_id, new_password):
+    try:
+        new_hash = hasher.hash(new_password)
+        success = password_update(user_id, new_hash)
+        if success:
+            return True, "Password updated!"
+        else:
+            return False, "Unable to update password!"
+    except Exception as e:
+        print(e)
+        return False, "Unexpected error!"
 
 
 def generate_secrets():

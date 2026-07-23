@@ -1,4 +1,10 @@
-from services.auth import login_required, login_user, create_user, password_reset
+from services.auth import (
+    login_required,
+    login_user,
+    create_user,
+    password_reset,
+    password_change,
+)
 from flask import (
     Flask,
     current_app,
@@ -18,6 +24,8 @@ from flask_session import Session
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
+
+from services.database import find_user
 
 load_dotenv()
 
@@ -136,9 +144,11 @@ def reset_password():
         if user_changed:
             session.clear()
             session.permanent = True
-            session['user_id'] = user_changed['id']
+            session["user-id"] = user_changed["id"]
             flash(message, "success")
             return redirect(url_for("change_password"))
+        else:
+            flash(message, 'error')
     return render_template(
         "user/forgot-password.html", title=title, description=description
     )
@@ -149,21 +159,36 @@ def reset_password():
 def change_password():
     title = "Change password"
     if request.method == "POST":
-        new_password = request.form.get('password', "").strip()
-        conf_password = request.form.get('password', "").strip()
-    return render_template("/user/new_password.html")
+        new_password = request.form.get("password", "").strip()
+        conf_password = request.form.get("password", "").strip()
+        if new_password != conf_password:
+            flash("Password mismatch", "error")
+            return redirect(url_for("change_password"))
+        success, message = password_change(session.get("user-id"), conf_password)
+        if success:
+            flash(message, "success")
+            return redirect(url_for("account"))
+        flash(message, "error")
+        return redirect(url_for("change_password"))
+    return render_template("/user/change-password.html", title=title)
 
 
 @app.route("/user/home", methods=["GET", "POST"])
 @login_required
 def account():
     title = "Welcome Back!"
+    user = find_user(session.get('user-id'))
+    if user['reset'] == 1:
+        return redirect(url_for('change_password'))
     return render_template("user/home.html", title=title)
 
 
 @app.route("/logout", methods=["POST"])
 @login_required
 def logout():
+    user = find_user(session.get('user-id'))
+    if user['reset'] == 1:
+        return redirect(url_for('change_password'))
     session.clear()
     flash("Logout successful!", "success")
     return redirect(url_for("home"))

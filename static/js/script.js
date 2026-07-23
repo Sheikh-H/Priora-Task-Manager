@@ -8,7 +8,7 @@ const observer = new IntersectionObserver(
     });
   },
   {
-    treshold: 0.2,
+    threshold: 0.2,
   },
 );
 
@@ -18,26 +18,28 @@ const elements = document.querySelectorAll(
 
 elements.forEach((element) => observer.observe(element));
 
-featureCards = document.querySelectorAll(".feature-info");
+const featureCards = document.querySelectorAll(".feature-info");
 
 featureCards.forEach((card, index) => {
   card.style.transitionDelay = `${index * 500}ms`;
 });
 
-featureAnimations = document.querySelectorAll(".feature-animation");
+const featureAnimations = document.querySelectorAll(".feature-animation");
 
 featureAnimations.forEach((card, index) => {
   card.style.transitionDelay = `${index * 500}ms`;
 });
 
-nightModeButton = document.querySelector(".night-mode-button");
-nightModeInnerButton = document.querySelector(".night-mode-inner-button");
+const nightModeButton = document.querySelector(".night-mode-button");
+const nightModeInnerButton = document.querySelector(".night-mode-inner-button");
 
-nightModeButton.addEventListener("click", () => {
-  nightModeInnerButton.classList.toggle("active");
-  nightModeButton.classList.toggle("active");
-  document.documentElement.classList.toggle("dark-mode");
-});
+if (nightModeButton) {
+  nightModeButton.addEventListener("click", () => {
+    nightModeInnerButton.classList.toggle("active");
+    nightModeButton.classList.toggle("active");
+    document.documentElement.classList.toggle("dark-mode");
+  });
+}
 
 setTimeout(() => {
   const flashes = document.querySelectorAll(".flash");
@@ -47,17 +49,12 @@ setTimeout(() => {
 }, 3000);
 
 const errorFormMessage = document.querySelector(".form-error");
+
 const loginForm = document.querySelector("#login-form");
 if (loginForm) {
   loginForm.addEventListener("submit", function (e) {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-
-    if (password.length < 10) {
-      e.preventDefault();
-      errorFormMessage.textContent =
-        "Password must be greater than 10 characters";
-    }
 
     if (!email) {
       e.preventDefault();
@@ -72,6 +69,7 @@ if (loginForm) {
     }
   });
 }
+
 const registerForm = document.querySelector("#register-form");
 
 if (registerForm) {
@@ -82,6 +80,10 @@ if (registerForm) {
     const password = document.getElementById("password").value.trim();
     const confPassword = document
       .getElementById("confirm-password")
+      .value.trim();
+
+    const memorableInfo = document
+      .getElementById("memorable-info")
       .value.trim();
 
     if (!fname) {
@@ -102,15 +104,16 @@ if (registerForm) {
       return;
     }
 
+    if (!password) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your password!";
+      return;
+    }
+
     if (password.length < 10) {
       e.preventDefault();
       errorFormMessage.textContent =
         "Password must be greater than 10 characters";
-    }
-
-    if (!password) {
-      e.preventDefault();
-      errorFormMessage.textContent = "Please enter your password!";
       return;
     }
 
@@ -120,9 +123,74 @@ if (registerForm) {
       return;
     }
 
+    if (!memorableInfo) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your memorable info!";
+      return;
+    }
+
     if (password !== confPassword) {
       e.preventDefault();
-      error.textContent = "Passwords do not match.";
+      errorFormMessage.textContent = "Passwords do not match.";
+    }
+  });
+}
+
+const memorableForm = document.querySelector("#memorable-form");
+
+if (memorableForm) {
+  memorableForm.addEventListener("submit", function (e) {
+    const email = document.getElementById("email").value.trim();
+    const memorableInfo = document
+      .getElementById("memorable-info")
+      .value.trim();
+
+    if (!email) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your email!";
+      return;
+    }
+
+    if (!memorableInfo) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter your memorable info!";
+      return;
+    }
+  });
+}
+
+const changePasswordForm = document.querySelector("#change-password-form");
+
+if (changePasswordForm) {
+  changePasswordForm.addEventListener("submit", function (e) {
+    const password = document.getElementById("password").value.trim();
+    const confPassword = document
+      .getElementById("confirm-password")
+      .value.trim();
+
+    if (!password) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please enter a new password!";
+      return;
+    }
+
+    if (!confPassword) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Please confirm new password!";
+      return;
+    }
+
+    if (password.length < 10) {
+      e.preventDefault();
+      errorFormMessage.textContent =
+        "Password must be greater than 10 characters!";
+      return;
+    }
+
+    if (password !== confPassword) {
+      e.preventDefault();
+      errorFormMessage.textContent = "Password mismatch!";
+      return;
     }
   });
 }
