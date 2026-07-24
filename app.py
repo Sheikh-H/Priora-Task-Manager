@@ -191,7 +191,7 @@ def account():
 
     todays = search_tasks_by_date(today, user)
     tomorrows = search_tasks_by_date(tomorrow, user)
-    upcoming = search_tasks_by_date(future, user)
+    upcoming = search_tasks_by_date(future, user["user_id"])
 
     return render_template(
         "user/home.html",

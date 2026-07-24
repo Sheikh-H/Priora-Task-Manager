@@ -138,16 +138,18 @@
     </div>
 
     {% elif new_user and not tasks %}
-
+    <div class="empty-column"></div>
     <div class="no-tasks">
       <p>Start by adding your first task!</p>
     </div>
-
+    <div class="empty-column"></div>
     {% else %}
+    <div class="empty-column"></div>
 
     <div class="no-tasks">
       <p>No tasks, add a task!</p>
     </div>
+    <div class="empty-column"></div>
 
     {% endif %}
   </div>
