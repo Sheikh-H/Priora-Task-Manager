@@ -99,6 +99,8 @@ def login():
                 session["user-id"] = user["user_id"]
                 flash(message, "success")
                 return redirect(url_for("account"))
+            else:
+                flash(message, "error")
     return render_template("user/login.html", title=title, description=description)
 
 

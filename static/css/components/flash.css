@@ -1,7 +1,7 @@
 /* flash messages */
 .flash-container {
     position: fixed;
-    top: 70px;
+    top: 40px;
     z-index: 1000;
     justify-content: center;
     display: flex;
@@ -18,11 +18,11 @@
 }
 
 .flash.success {
-    color: var(--primary-text);
+    color: var(--success);
 }
 
 .flash.error {
-    color: var(--primary-text);
+    color: var(--danger);
 }
 
 
@@ -38,7 +38,7 @@
     }
 
     .flash-container {
-        top: 100px;
+        top: 50px;
     }
 }
 
@@ -49,7 +49,7 @@
 @media screen and (min-width: 1000px) {
 
     .flash-container {
-        top: 100px;
+        top: 5px;
     }
 
     .flash {
