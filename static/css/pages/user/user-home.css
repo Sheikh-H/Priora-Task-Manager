@@ -2,12 +2,49 @@
     height: 85vh;
     display: flex;
     flex-direction: column;
+    padding: 5px;
 }
 
 .user-home-section h1 {
     text-align: center;
 }
 
+.user-home-main{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.user-home-tasks-grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5px;
+}
+
+.user-home-tasks-card{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    padding: 5px;
+    border-radius: 5px;;
+    align-items: center;
+}
+
+.user-home-tasks-card > p{
+    font-size: 0.9rem;
+}
+
+.user-home-tasks-card > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.show-on-tablet{
+    display: none;
+}
 
 
 
@@ -17,6 +54,18 @@
 
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
+.user-home-main {
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+    }
+
+    .user-home-tasks-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .show-on-tablet {
+        display: flex;
+    }
 
 }
 
@@ -26,7 +75,18 @@
 ========================== */
 
 @media screen and (min-width: 1000px) {
+    .user-home-main {
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+    }
 
+    .user-home-tasks-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .show-on-tablet{
+        display: flex;
+    }
 }
 
 

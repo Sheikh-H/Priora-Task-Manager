@@ -1,5 +1,6 @@
-from dotenv import load_dotenv
 from argon2 import PasswordHasher
+from dotenv import load_dotenv
+from datetime import datetime
 import sqlite3
 import os
 
@@ -100,14 +101,16 @@ def insert_user(user):
     connection = connect_database()
     cursor = connection.cursor()
     try:
+        now = datetime.now().replace(microsecond=0)
         cursor.execute(
-            """INSERT INTO users (first_name, last_name, email, password, memorable) VALUES (?,?,?,?,?);""",
+            """INSERT INTO users (first_name, last_name, email, password, memorable, date_created) VALUES (?,?,?,?,?,?);""",
             (
                 user["fname"],
                 user["sname"],
                 user["email"],
                 user["password"],
                 user["memorable"],
+                f"{now}",
             ),
         )
         connection.commit()
