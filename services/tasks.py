@@ -1,4 +1,9 @@
-from services.database import all_tasks, find_task_by_id, find_tasks_by_date
+from services.database import (
+    all_tasks,
+    find_task_by_id,
+    find_tasks_by_date,
+    find_tasks_after_date,
+)
 
 
 def load_tasks(user):
@@ -20,6 +25,15 @@ def search_tasks_by_date(date, user):
     query = f"{date}"
     user_id = user["user_id"]
     tasks = find_tasks_by_date(query, user_id)
+    if tasks:
+        return tasks
+    return None
+
+
+def search_upcoming_tasks(date_from, user):
+    date_from = f"{date_from}"
+    user_id = user["user_id"]
+    tasks = find_tasks_after_date(date_from, user_id)
     if tasks:
         return tasks
     return None

@@ -1,4 +1,9 @@
-from services.tasks import load_tasks, search_task_by_id, search_tasks_by_date
+from services.tasks import (
+    load_tasks,
+    search_task_by_id,
+    search_tasks_by_date,
+    search_upcoming_tasks,
+)
 from services.auth import (
     login_required,
     login_user,
@@ -185,13 +190,14 @@ def account():
     tasks = load_tasks(user)
 
     date = datetime.now().replace(microsecond=0).date()
+
     today = date
     tomorrow = date + timedelta(days=1)
     future = date + timedelta(days=2)
 
     todays = search_tasks_by_date(today, user)
     tomorrows = search_tasks_by_date(tomorrow, user)
-    upcoming = search_tasks_by_date(future, user)
+    upcoming = search_upcoming_tasks(future, user)
 
     return render_template(
         "user/home.html",
@@ -202,6 +208,21 @@ def account():
         tomorrows=tomorrows,
         upcoming=upcoming,
     )
+
+
+@app.route("/user/tasks/tomorrow", methods=["GET", "POST"])
+@login_required
+@password_reset_required
+def tomorrows_tasks():
+    title = "Tomorrows Tasks"
+    date = datetime.now().replace(microsecond=0).date()
+    date = date + timedelta(days=1)
+    user = find_user_by_id(session.get("user-id"))
+    new_user = bool(user["new_user"])
+    if new_user:
+        return redirect(url_for("account"))
+    tasks = search_tasks_by_date(date, user)
+    return render_template("tasks/tomorrows-tasks.html", title=title, tasks=tasks)
 
 
 @app.route("/user/task/<int:task_id>")

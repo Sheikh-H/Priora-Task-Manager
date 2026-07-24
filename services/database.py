@@ -255,11 +255,28 @@ def find_tasks_by_date(date, user_id):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ? AND due_date = ?;""",
+            """SELECT * FROM tasks WHERE user_id = ? AND due_date = ? ORDER BY due_date DESC, due_time ASC LIMIT 10;""",
             (user_id, date),
         )
         tasks = cursor.fetchall()
-        print(tasks)
+        return tasks
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def find_tasks_after_date(date_from, user_id):
+    connection = connect_database()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ? AND due_date >= ? ORDER BY due_date DESC , due_time ASC LIMIT 10;""",
+            (user_id, date_from),
+        )
+        tasks = cursor.fetchall()
         return tasks
     except Exception as e:
         print(e)

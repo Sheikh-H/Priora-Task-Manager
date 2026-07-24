@@ -1,82 +1,25 @@
 {% extends 'layout.html' %} {% block content %}
 
 <section class="user-home-section">
-  <h1>Welcome!</h1>
-
-  {% if tasks and not new_user %}
+  {% if tasks %}
   <div class="tasks-top-nav">
-    <a href="{{ url_for('tomorrows_tasks')}}"><p>Tomorrows Tasks</p></a>
+    <a href="{{ url_for('account')}}"><p>Today's Tasks</p></a>
   </div>
-
   <div class="row-title">
     <div>
-      <h2>Due Today</h2>
-    </div>
-
-    <div>
-      <h2 class="show-on-tablet">Tomorrow</h2>
-    </div>
-
-    <div>
-      <h2 class="show-on-desktop">Upcoming</h2>
+      <h2>Due Tomorrow</h2>
     </div>
   </div>
-
   {% endif %}
-
   <div class="user-home-tasks-grid">
-    {% if tasks and not new_user %}
-
-    <!-- TODAY -->
-
-    <div class="task-column">
-      {% if todays %} {% for task in todays %}
-
-      <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card">
-          <form action="" method="post">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-
-            <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
-
-            <button type="submit" class="task-button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960"
-                class="task-button-inner"
-              >
-                <path
-                  d="m405-436 228-227q18-18 41.5-18t41.5 18q18 18 18 41.5T716-580L447-310q-18 18-42.5 18T362-310L254-419q-18-18-18-41.5t18-41.5q18-18 41.5-18t41.5 18l68 66Z"
-                />
-              </svg>
-            </button>
-
-            <p>{{ task['title'] }}</p>
-
-            <p>{{ task['due_date'] }} {{ task['due_time'] }}</p>
-          </form>
-        </div>
-      </a>
-
-      {% endfor %} {% else %}
-
-      <p>No tasks for today</p>
-
-      {% endif %}
-    </div>
-
-    <!-- TOMORROW -->
-
+    {% if tasks %}
     <div class="task-column show-on-tablet">
-      {% if tomorrows %} {% for task in tomorrows %}
-
+      {% for task in tasks %}
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card">
           <form action="" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-
             <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
-
             <button type="submit" class="task-button">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,75 +31,16 @@
                 />
               </svg>
             </button>
-
             <p>{{ task['title'] }}</p>
-
             <p>{{ task['due_date'] }} {{ task['due_time'] }}</p>
           </form>
         </div>
       </a>
-
       {% endfor %} {% else %}
-
       <p>No tasks for tomorrow</p>
-
       {% endif %}
     </div>
-    <!-- UPCOMING -->
-
-    <div class="task-column show-on-desktop">
-      {% if upcoming %} {% for task in upcoming %}
-
-      <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card">
-          <form action="" method="post">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-
-            <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
-
-            <button type="submit" class="task-button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960"
-                class="task-button-inner"
-              >
-                <path
-                  d="m405-436 228-227q18-18 41.5-18t41.5 18q18 18 18 41.5T716-580L447-310q-18 18-42.5 18T362-310L254-419q-18-18-18-41.5t18-41.5q18-18 41.5-18t41.5 18l68 66Z"
-                />
-              </svg>
-            </button>
-
-            <p>{{ task['title'] }}</p>
-
-            <p>{{ task['due_date'] }} {{ task['due_time'] }}</p>
-          </form>
-        </div>
-      </a>
-
-      {% endfor %} {% else %}
-
-      <p>No tasks scheduled for later</p>
-
-      {% endif %}
-    </div>
-
-    {% elif new_user and not tasks %}
-    <div class="empty-column"></div>
-    <div class="no-tasks">
-      <p>Start by adding your first task!</p>
-    </div>
-    <div class="empty-column"></div>
-    {% else %}
-    <div class="empty-column"></div>
-
-    <div class="no-tasks">
-      <p>No tasks, add a task!</p>
-    </div>
-    <div class="empty-column"></div>
-
-    {% endif %}
   </div>
-
   <div>
     <aside class="user-home-options">
       <div>

@@ -112,7 +112,12 @@
     width: 100%;
 }
 
-
+.tasks-top-nav {
+    display: flex;
+    width: 100%;
+    border: 1px solid black;
+    justify-content: center;
+}
 
 /* ==========================
    Tablet
@@ -120,6 +125,11 @@
 
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
+
+    .tasks-top-nav {
+        display: none;
+    }
+
     .row-title {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -144,6 +154,11 @@
 ========================== */
 
 @media screen and (min-width: 1000px) {
+
+    .tasks-top-nav {
+        display: none;
+    }
+
     .row-title {
         grid-template-columns: repeat(3, 1fr);
     }
