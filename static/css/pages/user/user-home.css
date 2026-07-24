@@ -23,6 +23,34 @@
     background-color: var(--bg-task-card);
 }
 
+.task-button{
+    width: 15px;
+    height: 15px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.task-button svg{
+    width: 14px;
+    height: 14px;
+    fill: var(--success);
+}
+
+.task-button-inner{
+    display:none;
+}
+
+.task-button-inner.active{
+    display: flex;
+}
+
+.task-column{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
 .user-home-tasks-card form {
     display: flex;
     justify-content: space-evenly;

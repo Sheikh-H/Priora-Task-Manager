@@ -208,10 +208,7 @@ def is_reset_req(user_id):
             (user_id,),
         )
         required = cursor.fetchone()
-        if required and required["reset"] == 1:
-            return True
-        else:
-            return False
+        return bool(required and required["reset"] == 1)
     except Exception as e:
         print(e)
         return False
@@ -228,6 +225,41 @@ def all_tasks(user):
             (user["user_id"],),
         )
         tasks = cursor.fetchall()
+        return tasks
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def find_task_by_id(task_id, user_id):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE task_id = ? AND user_id = ?;""",
+            (task_id, user_id),
+        )
+        task = cursor.fetchone()
+        return task
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def find_tasks_by_date(date, user_id):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ? AND due_date = ?;""",
+            (user_id, date),
+        )
+        tasks = cursor.fetchall()
+        print(tasks)
         return tasks
     except Exception as e:
         print(e)

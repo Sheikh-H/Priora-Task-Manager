@@ -17,5 +17,6 @@
 @import url("pages/user/login-register.css");
 @import url("pages/user/user-home.css");
 
+@import url("pages/user/tasks/task-view.css");
 
 /* @import url("responsive.css"); */

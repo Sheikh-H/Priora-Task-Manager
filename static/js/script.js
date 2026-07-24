@@ -194,3 +194,13 @@ if (changePasswordForm) {
     }
   });
 }
+
+const taskButtons = document.querySelectorAll(".task-button");
+if (taskButtons) {
+  taskButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const tick = button.querySelector(".task-button-inner");
+      tick.classList.toggle("active");
+    });
+  });
+}

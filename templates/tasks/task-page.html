@@ -1,4 +1,11 @@
-<section>
-  <h1>All tasks</h1>
-  <form></form>
+{% extends 'layout.html' %} {% block content %}
+<section class="task-view-section">
+  <div>
+    <h1>{{task['title']}}</h1>
+  </div>
+  <div>
+    <h1>task log</h1>
+  </div>
 </section>
+
+{% endblock content %}

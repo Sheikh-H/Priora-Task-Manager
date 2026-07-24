@@ -1,6 +1,4 @@
-from asyncio import taskgroups
-
-from services.tasks import load_tasks
+from services.tasks import load_tasks, search_task_by_id, search_tasks_by_date
 from services.auth import (
     login_required,
     login_user,
@@ -22,14 +20,13 @@ from flask import (
     Response,
     abort,
 )
+from services.database import find_user_by_email, find_user_by_id
 from flask_wtf.csrf import CSRFProtect, CSRFError
+from datetime import timedelta, datetime
 from services.config import initialise
 from flask_session import Session
-from datetime import timedelta
 from dotenv import load_dotenv
 import os
-
-from services.database import find_user_by_email, find_user_by_id
 
 load_dotenv()
 
@@ -186,9 +183,35 @@ def account():
     user = find_user_by_id(session.get("user-id"))
     new_user = bool(user["new_user"])
     tasks = load_tasks(user)
+
+    date = datetime.now().replace(microsecond=0).date()
+    today = date
+    tomorrow = date + timedelta(days=1)
+    future = date + timedelta(days=2)
+
+    todays = search_tasks_by_date(today, user)
+    tomorrows = search_tasks_by_date(tomorrow, user)
+    upcoming = search_tasks_by_date(future, user)
+
     return render_template(
-        "user/home.html", title=title, tasks=tasks, new_user=new_user
+        "user/home.html",
+        title=title,
+        tasks=tasks,
+        new_user=new_user,
+        todays=todays,
+        tomorrows=tomorrows,
+        upcoming=upcoming,
     )
+
+
+@app.route("/user/task/<int:task_id>")
+@login_required
+@password_reset_required
+def task(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    task = search_task_by_id(task_id, user)
+    title = f"{task['title']}"
+    return render_template("tasks/task-page.html", title=title, task=task)
 
 
 @app.route("/logout", methods=["POST"])

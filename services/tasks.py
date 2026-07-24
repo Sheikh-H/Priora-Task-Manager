@@ -1,8 +1,25 @@
-from services.database import all_tasks
+from services.database import all_tasks, find_task_by_id, find_tasks_by_date
 
 
 def load_tasks(user):
     tasks = all_tasks(user)
+    if tasks:
+        return tasks
+    return None
+
+
+def search_task_by_id(task_id, user):
+    user_id = user["user_id"]
+    task = find_task_by_id(task_id, user_id)
+    if task:
+        return task
+    return None
+
+
+def search_tasks_by_date(date, user):
+    query = f"{date}"
+    user_id = user["user_id"]
+    tasks = find_tasks_by_date(query, user_id)
     if tasks:
         return tasks
     return None
