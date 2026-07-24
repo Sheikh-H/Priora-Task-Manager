@@ -64,7 +64,7 @@ html.dark-mode {
     margin: 0;
     padding: 0;
     scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-color);
+    scrollbar-color: #94B9FF var(--bg-color);
 }
 
 html {
