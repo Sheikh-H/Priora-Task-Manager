@@ -1,6 +1,7 @@
 :root {
     /* Backgrounds */
     --bg-color: #F7F6E6;
+    --bg-task-card: white;
     --surface-color: #FFFFFF;
     --surface-secondary: #FFF8EF;
     --hero-gradient: linear-gradient(90deg, #CDFFD8 0%, #94B9FF 100%);
@@ -35,6 +36,7 @@
 html.dark-mode {
     /* Backgrounds */
     --bg-color: #1F1F1C;
+    --bg-task-card: black;
     --surface-color: #2B2B26;
     --surface-secondary: #36362F;
     --hero-bg-mb: url('/static/media/dark-bg-mobile.gif');

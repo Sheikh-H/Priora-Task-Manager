@@ -1,39 +1,63 @@
-.user-home-section{
+.user-home-section {
+    height: 85vh;
     display: flex;
     flex-direction: column;
     padding: 5px;
+}
+
+.user-home-section h1 {
     text-align: center;
-    gap: 15px;
+}
+
+.user-home-main{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
 }
 
 .user-home-tasks-grid{
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
-    padding: 3px;
-    border-radius: 5px;;
-    border: 1px solid var(--accent-peach);
+    grid-template-columns: 1fr;
+    gap: 5px;
+}
+
+.no-tasks{
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 }
 
 .user-home-tasks-card{
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    border: 1px solid var(--border-color);
     padding: 5px;
-    background-color: var(--bg-task-card);
+    border-radius: 5px;;
+    align-items: center;
 }
 
-.user-home-tasks-card form {
+.user-home-tasks-card > p{
+    font-size: 0.9rem;
+}
+
+.user-home-tasks-card > div{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    gap: 5px;
 }
 
 .user-home-options{
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
+    margin-top: 15px;
     gap: 10px;
 }
 
@@ -57,28 +81,7 @@
     fill: var(--primary-text);
 }
 
-.row-title{
-    display: grid;
-    grid-template-columns: repeat(1fr);
-    justify-content: center;
-    align-items: center;
-    text-align: center;    
-}
-
-.row-title > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-
-
 .show-on-tablet{
-    display: none;
-}
-
-.show-on-desktop{
     display: none;
 }
 
@@ -92,16 +95,12 @@
 
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
-    .row-title {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .user-home-options>div>p {
         font-size: 1rem;
     }
 
     .user-home-tasks-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .show-on-tablet {
@@ -116,20 +115,14 @@
 ========================== */
 
 @media screen and (min-width: 1000px) {
-    .row-title {
-        grid-template-columns: repeat(3, 1fr);
-    }
 
-    .show-on-desktop {
-        display: flex;
-    }
 
     .user-home-options>div>p {
         font-size: 1rem;
     }
 
     .user-home-tasks-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .show-on-tablet{

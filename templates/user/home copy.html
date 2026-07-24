@@ -7,20 +7,20 @@
       <div class="user-home-tasks-card">
         <form action="" method="post">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <input type="hidden" name="task-id" value="{{ csrf_token() }}" />
+          <input type="hidden" name="task-id" value="{{ task['task_id']}}" />
           <input type="checkbox" name="task-completed" id="task-completed" />
-          <p>Task title task title task</p>
-          <p class="show-on-tablet show-on-desktop">task description</p>
-          <p>24/07/26 15:00 PM</p>
+          <p>{{ task['title'] }}</p>
+          <p class="show-on-tablet">{{ task['description'] }}</p>
+          <p>{{ task['due_date'] }} {{ task['due_time'] }}</p>
         </form>
       </div>
       {% endfor %} {% elif new_user %}
-      <div>
-        <p>Add your first task</p>
+      <div class="no-tasks">
+        <p>Start by adding your first task!</p>
       </div>
       {% else %}
-      <div>
-        <p>No tasks, add a task</p>
+      <div class="no-tasks">
+        <p>No tasks, add a task!</p>
       </div>
       {% endif %}
     </div>
