@@ -6,7 +6,7 @@
     <nav>
       <ul>
         {% if session.get('user-id') %}
-        <li><a href="{{ url_for('account') }}">Account</a></li>
+        <li><a href="{{ url_for('account') }}">Home</a></li>
         <li><a href="{{ url_for('home') }}">Tasks</a></li>
         <li>
           <form action="{{ url_for('logout') }}" method="post">
@@ -17,7 +17,8 @@
         {% else %}
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('about') }}">About</a></li>
-        <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
         {% endif %}
         <li>
           <div class="night-mode-button">
