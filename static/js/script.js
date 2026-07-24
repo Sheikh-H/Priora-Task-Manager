@@ -33,11 +33,26 @@ featureAnimations.forEach((card, index) => {
 const nightModeButton = document.querySelector(".night-mode-button");
 const nightModeInnerButton = document.querySelector(".night-mode-inner-button");
 
+if (localStorage.getItem("dark-mode") === "enabled") {
+  document.documentElement.classList.add("dark-mode");
+  if (nightModeButton) {
+    nightModeButton.classList.add("active");
+  }
+  if (nightModeInnerButton) {
+    nightModeInnerButton.classList.add("active");
+  }
+}
+
 if (nightModeButton) {
   nightModeButton.addEventListener("click", () => {
     nightModeInnerButton.classList.toggle("active");
     nightModeButton.classList.toggle("active");
     document.documentElement.classList.toggle("dark-mode");
+    if (document.documentElement.classList.contains("dark-mode")) {
+      localStorage.setItem("dark-mode", "enabled");
+    } else {
+      localStorage.setItem("dark-mode", "disabled");
+    }
   });
 }
 
