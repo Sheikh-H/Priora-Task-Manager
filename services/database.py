@@ -27,7 +27,9 @@ def initialise_database():
                             "email"	TEXT NOT NULL UNIQUE,
                             "password"	TEXT NOT NULL,
                             "memorable"	TEXT NOT NULL,
+                            "date_created"	TEXT NOT NULL,
                             "reset"	INTEGER NOT NULL DEFAULT 0,
+                            "new_user"	INTEGER NOT NULL DEFAULT 1,
                             PRIMARY KEY("user_id" AUTOINCREMENT)
                             );
                             """)
@@ -207,6 +209,23 @@ def is_reset_req(user_id):
             return True
         else:
             return False
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def all_tasks(user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ?;""",
+            (user["user_id"],),
+        )
+        tasks = cursor.fetchall()
+        return tasks
     except Exception as e:
         print(e)
         return False

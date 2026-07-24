@@ -1,3 +1,6 @@
+from asyncio import taskgroups
+
+from services.tasks import load_tasks
 from services.auth import (
     login_required,
     login_user,
@@ -179,7 +182,11 @@ def change_password():
 def account():
     title = "Welcome Back!"
     user = find_user_by_id(session.get("user-id"))
-    return render_template("user/home.html", title=title)
+    new_user = bool(user["new_user"])
+    tasks = load_tasks(user)
+    return render_template(
+        "user/home.html", title=title, tasks=tasks, new_user=new_user
+    )
 
 
 @app.route("/logout", methods=["POST"])

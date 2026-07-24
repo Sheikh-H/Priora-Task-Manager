@@ -3,5 +3,27 @@
   <div>
     <h1>Logged in</h1>
   </div>
+  <div class="user-home-tasks-grid">
+    {% if tasks %} {% for task in tasks %}
+    <form action="" method="post">
+      <div class="user-home-tasks-card">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="checkbox" name="task-completed" id="task-completed" />
+        <p>{{ task.title }}</p>
+        <p>{{ task.description }}</p>
+        <p>{{ task.due_date }}</p>
+        <p>{{ task.due_time }}</p>
+      </div>
+    </form>
+    {% endfor %} {% elif user['new_user'] %}
+
+    <div><p>Add your first task!</p></div>
+
+    {% else %}
+
+    <div><p>All up to date, add some new tasks!</p></div>
+
+    {% endif %}
+  </div>
 </section>
 {% endblock content %}
