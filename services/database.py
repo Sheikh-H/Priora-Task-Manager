@@ -204,7 +204,7 @@ def is_reset_req(user_id):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT reset FROM users WHERE id = ?;""",
+            """SELECT reset FROM users WHERE user_id = ?;""",
             (user_id,),
         )
         required = cursor.fetchone()
