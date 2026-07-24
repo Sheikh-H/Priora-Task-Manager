@@ -1,6 +1,7 @@
 {% extends 'layout.html' %} {% block content %}
 <section class="user-home-section">
   <h1>Welcome!</h1>
+  {% if tasks %}
   <div class="row-title">
     <div>
       <h2>Today</h2>
@@ -12,6 +13,7 @@
       <h2 class="show-on-desktop">Upcoming</h2>
     </div>
   </div>
+  {% endif %}
   <div class="user-home-tasks-grid">
     {% if tasks %} {% for task in tasks %}
     <div class="user-home-tasks-card">
