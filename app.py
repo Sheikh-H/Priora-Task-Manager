@@ -175,6 +175,20 @@ def reset_password():
     )
 
 
+@app.route("/user/all-tasks", methods=["GET", "POST"])
+@login_required
+@password_reset_required
+def all_tasks():
+    user = find_user_by_id(session.get("user-id"))
+    title = "All Tasks"
+    tasks = get_all_tasks(user)
+    date = datetime.now().replace(microsecond=0).date()
+    today = f"{date}"
+    return render_template(
+        "tasks/all-tasks.html", title=title, tasks=tasks, today=today
+    )
+
+
 @app.route("/user/completed-tasks", methods=["GET", "POST"])
 @login_required
 @password_reset_required
@@ -190,7 +204,7 @@ def completed_tasks():
 @password_reset_required
 def incomplete_tasks():
     user = find_user_by_id(session.get("user-id"))
-    title = "Completed Tasks"
+    title = "Incomplete Tasks"
     tasks = get_incomplete_tasks(user)
     return render_template("tasks/incomplete-tasks.html", title=title, tasks=tasks)
 

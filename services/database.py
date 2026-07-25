@@ -240,7 +240,7 @@ def all_tasks(user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ? AND completed = 0;""",
+            """SELECT * FROM tasks WHERE user_id = ?;""",
             (user["user_id"],),
         )
         tasks = cursor.fetchall()
