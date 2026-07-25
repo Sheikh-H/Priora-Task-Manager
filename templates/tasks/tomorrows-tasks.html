@@ -1,7 +1,5 @@
 {% extends 'layout.html' %} {% block content %}
-
 <section class="user-home-section">
-  {% if tasks %}
   <div class="tasks-top-nav">
     <a href="{{ url_for('account')}}"><p>Today's Tasks</p></a>
   </div>
@@ -10,10 +8,9 @@
       <h2>Due Tomorrow</h2>
     </div>
   </div>
-  {% endif %}
   <div class="user-home-tasks-grid">
     {% if tasks %}
-    <div class="task-column show-on-tablet">
+    <div class="task-column">
       {% for task in tasks %}
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card">
@@ -38,8 +35,8 @@
       </a>
       {% endfor %} {% else %}
       <p>No tasks for tomorrow</p>
-      {% endif %}
     </div>
+    {% endif %}
   </div>
   <div>
     <aside class="user-home-options">

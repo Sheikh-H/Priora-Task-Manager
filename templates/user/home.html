@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block content %}
 
 <section class="user-home-section">
-  <h1>Welcome!</h1>
+  <h1>Welcome {{ user['first_name'].title() }}!</h1>
 
   {% if tasks and not new_user %}
   <div class="tasks-top-nav">
@@ -57,7 +57,6 @@
           </form>
         </div>
       </a>
-
       {% endfor %} {% else %}
 
       <p>No tasks for today</p>
@@ -95,7 +94,6 @@
           </form>
         </div>
       </a>
-
       {% endfor %} {% else %}
 
       <p>No tasks for tomorrow</p>
@@ -132,7 +130,6 @@
           </form>
         </div>
       </a>
-
       {% endfor %} {% else %}
 
       <p>No tasks scheduled for later</p>

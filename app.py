@@ -3,6 +3,7 @@ from services.tasks import (
     search_task_by_id,
     search_tasks_by_date,
     search_upcoming_tasks,
+    mark_as_complete,
 )
 from services.auth import (
     login_required,
@@ -199,6 +200,14 @@ def account():
     tomorrows = search_tasks_by_date(tomorrow, user)
     upcoming = search_upcoming_tasks(future, user)
 
+    if request.method == "POST":
+        task_id = request.form.get("task-id")
+        update = mark_as_complete(task_id, user)
+        if update:
+            flash(update, "success")
+            return redirect(url_for("account"))
+        return redirect(url_for("account"))
+
     return render_template(
         "user/home.html",
         title=title,
@@ -207,6 +216,7 @@ def account():
         todays=todays,
         tomorrows=tomorrows,
         upcoming=upcoming,
+        user=user,
     )
 
 
@@ -215,13 +225,19 @@ def account():
 @password_reset_required
 def tomorrows_tasks():
     title = "Tomorrows Tasks"
+
     date = datetime.now().replace(microsecond=0).date()
     date = date + timedelta(days=1)
+
     user = find_user_by_id(session.get("user-id"))
+
     new_user = bool(user["new_user"])
+
     if new_user:
         return redirect(url_for("account"))
+
     tasks = search_tasks_by_date(date, user)
+
     return render_template("tasks/tomorrows-tasks.html", title=title, tasks=tasks)
 
 

@@ -3,6 +3,7 @@ from services.database import (
     find_task_by_id,
     find_tasks_by_date,
     find_tasks_after_date,
+    toggle_task_complete,
 )
 
 
@@ -37,3 +38,11 @@ def search_upcoming_tasks(date_from, user):
     if tasks:
         return tasks
     return None
+
+
+def mark_as_complete(task_id, user):
+    user_id = user["user_id"]
+    task = toggle_task_complete(task_id, user_id)
+    if task:
+        return "Task marked complete!"
+    return "Unable to update!"

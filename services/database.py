@@ -221,7 +221,7 @@ def all_tasks(user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ?;""",
+            """SELECT * FROM tasks WHERE user_id = ? AND completed = 0;""",
             (user["user_id"],),
         )
         tasks = cursor.fetchall()
@@ -255,7 +255,7 @@ def find_tasks_by_date(date, user_id):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ? AND due_date = ? ORDER BY due_date DESC, due_time ASC LIMIT 10;""",
+            """SELECT * FROM tasks WHERE user_id = ? AND due_date = ? AND completed = 0 ORDER BY due_date ASC, due_time ASC LIMIT 10;""",
             (user_id, date),
         )
         tasks = cursor.fetchall()
@@ -273,7 +273,7 @@ def find_tasks_after_date(date_from, user_id):
 
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ? AND due_date >= ? ORDER BY due_date DESC , due_time ASC LIMIT 10;""",
+            """SELECT * FROM tasks WHERE user_id = ? AND due_date >= ? AND completed = 0 ORDER BY due_date ASC , due_time ASC LIMIT 10;""",
             (user_id, date_from),
         )
         tasks = cursor.fetchall()
@@ -283,3 +283,30 @@ def find_tasks_after_date(date_from, user_id):
         return False
     finally:
         connection.close()
+
+
+def toggle_task_complete(task_id, user_id):
+    task = find_task_by_id(task_id, user_id)
+    connection = connect_database()
+    cursor = connection.cursor()
+    if task:
+        try:
+            if task["completed"]:
+                cursor.execute(
+                    """UPDATE tasks SET completed = 0 WHERE user_id = ? AND task_id = ?""",
+                    (user_id, task_id),
+                )
+                connection.commit()
+                return True
+            else:
+                cursor.execute(
+                    """UPDATE tasks SET completed = 1 WHERE user_id = ? AND task_id = ?""",
+                    (user_id, task_id),
+                )
+                connection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+        finally:
+            connection.close()
