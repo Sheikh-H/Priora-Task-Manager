@@ -58,6 +58,10 @@
     width: 100%;
 }
 
+.user-home-tasks-card.overdue{
+    background-color: var(--danger);
+}
+
 .user-home-options{
     justify-content: center;
     align-items: center;

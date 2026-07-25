@@ -4,6 +4,7 @@ from services.tasks import (
     search_tasks_by_date,
     search_upcoming_tasks,
     mark_as_complete,
+    search_overdue_tasks,
 )
 from services.auth import (
     login_required,
@@ -27,11 +28,13 @@ from flask import (
     abort,
 )
 from services.database import (
+    find_task_by_id,
     find_user_by_id,
     get_task_logs,
     get_all_task_logs,
     add_log,
     update_task_fields,
+    delete_task_by_id,
 )
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
@@ -205,6 +208,7 @@ def account():
     todays = search_tasks_by_date(today, user)
     tomorrows = search_tasks_by_date(tomorrow, user)
     upcoming = search_upcoming_tasks(future, user)
+    overdue = search_overdue_tasks(today, user)
 
     if request.method == "POST":
         task_id = request.form.get("task-id")
@@ -223,6 +227,7 @@ def account():
         tomorrows=tomorrows,
         upcoming=upcoming,
         user=user,
+        overdue=overdue,
     )
 
 
@@ -231,19 +236,13 @@ def account():
 @password_reset_required
 def tomorrows_tasks():
     title = "Tomorrows Tasks"
-
     date = datetime.now().replace(microsecond=0).date()
     date = date + timedelta(days=1)
-
     user = find_user_by_id(session.get("user-id"))
-
     new_user = bool(user["new_user"])
-
     if new_user:
         return redirect(url_for("account"))
-
     tasks = search_tasks_by_date(date, user)
-
     return render_template("tasks/tomorrows-tasks.html", title=title, tasks=tasks)
 
 
@@ -267,6 +266,24 @@ def all_logs(task_id):
     return render_template("tasks/task-log.html", logs=logs)
 
 
+@app.route("/user/task/<int:task_id>/complete", methods=["POST"])
+@login_required
+@password_reset_required
+def task_complete(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    task = find_task_by_id(task_id, user["user_id"])
+    completed = bool(task["completed"])
+    success = mark_as_complete(task_id, user)
+    if success and not completed:
+        flash("Task marked as complete!", "success")
+        return redirect(url_for("task", task_id=task_id))
+    if success and completed:
+        flash("Task marked as incomplete!", "success")
+        return redirect(url_for("task", task_id=task_id))
+    flash("Unable to update task", "error")
+    return redirect(url_for("task", task_id=task_id))
+
+
 @app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
 @login_required
 @password_reset_required
@@ -281,28 +298,53 @@ def add_task_log(task_id):
     return redirect(url_for("task", task_id=task_id))
 
 
+@app.route("/user/task/<int:task_id>/delete", methods=["post"])
+@login_required
+@password_reset_required
+def delete_task(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    success = delete_task_by_id(task_id, user)
+    if success:
+        flash("Task deleted successfully!", "success")
+        return redirect(url_for("account"))
+    flash("Unable to delete task!", "error")
+    return redirect(url_for("task", task_id=task_id))
+
+
 @app.route("/user/task/<int:task_id>/update", methods=["POST"])
 @login_required
 @password_reset_required
 def update_task(task_id):
     user = find_user_by_id(session.get("user-id"))
+    task = find_task_by_id(task_id, user["user_id"])
     title = request.form.get("title", "").strip().lower()
     description = request.form.get("description", "").strip().lower()
     due_date = request.form.get("due-date")
     due_time = request.form.get("due-time")
-    try:
-        datetime.strptime(due_date, "%Y-%m-%d").date()
-        datetime.strptime(due_time, "%H:%M").time()
-        update = update_task_fields(
-            task_id, user, title, description, due_date, due_time
-        )
-        if update:
-            flash("Task updated successfully!", "success")
-        else:
-            flash("Unable to update task!", "error")
-    except ValueError:
-        flash("Please enter a valid date and/or time", "error")
-
+    updates = {}
+    if task["title"] != title:
+        updates["title"] = title
+    if task["description"] != description:
+        updates["description"] = description
+    if due_date:
+        try:
+            datetime.strptime(due_date, "%Y-%m-%d").date()
+            if task["due_date"] != due_date:
+                updates["due_date"] = due_date
+        except (ValueError, TypeError):
+            flash("Please enter a valid date!", "error")
+    if due_time:
+        try:
+            datetime.strptime(due_time, "%H:%M").time()
+            if task["due_time"] != due_time:
+                updates["due_time"] = due_time
+        except (ValueError, TypeError):
+            flash("Please enter a valid time!", "error")
+    success = update_task_fields(task_id, user, **updates)
+    if success:
+        flash("Task updated successfully!", "success")
+        return redirect(url_for("task", task_id=task_id))
+    flash("Unable to update task!", "error")
     return redirect(url_for("task", task_id=task_id))
 
 

@@ -4,6 +4,7 @@ from services.database import (
     find_tasks_by_date,
     find_tasks_after_date,
     toggle_task_complete,
+    find_tasks_before_date,
 )
 
 
@@ -35,6 +36,15 @@ def search_upcoming_tasks(date_from, user):
     date_from = f"{date_from}"
     user_id = user["user_id"]
     tasks = find_tasks_after_date(date_from, user_id)
+    if tasks:
+        return tasks
+    return None
+
+
+def search_overdue_tasks(date, user):
+    date = f"{date}"
+    user_id = user["user_id"]
+    tasks = find_tasks_before_date(date, user_id)
     if tasks:
         return tasks
     return None

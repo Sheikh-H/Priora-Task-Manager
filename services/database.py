@@ -1,9 +1,13 @@
+from codeop import compile_command
 from datetime import datetime, timedelta
 from argon2 import PasswordHasher
 from dotenv import load_dotenv
 from datetime import datetime
+from flask import flash
 import sqlite3
 import os
+
+from flask.cli import F
 
 load_dotenv()
 
@@ -117,6 +121,23 @@ def insert_user(user):
         connection.commit()
         user = find_user_by_email(user["email"])
         return user
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def find_tasks_before_date(date, user_id):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ? and due_date < ? ORDER BY due_date DESC, due_time DESC;""",
+            (user_id, date),
+        )
+        tasks = cursor.fetchall()
+        return tasks
     except Exception as e:
         print(e)
         return False
@@ -335,7 +356,7 @@ def get_task_logs(task_id, user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date ASC, time ASC LIMIT 5;""",
+            """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date DESC, time DESC LIMIT 5;""",
             (task_id, user_id),
         )
         logs = cursor.fetchall()
@@ -353,7 +374,7 @@ def get_all_task_logs(task_id, user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date ASC, time ASC;""",
+            """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date DESC, time DESC;""",
             (task_id, user_id),
         )
         logs = cursor.fetchall()
@@ -388,26 +409,68 @@ def add_log(task_id, user, comment):
         connection.close()
 
 
-def update_task_fields(task_id, user, title, description, date, time):
+def update_task_fields(task_id, user, **updates):
     user_id = user["user_id"]
     connection = connect_database()
     cursor = connection.cursor()
-    log_date = datetime.now().replace(microsecond=0)
-    today = log_date.date()
-    today = f"{today}"
-    time = log_date.time()
-    time = f"{time}"
+
+    title = updates.get("title")
+    description = updates.get("description")
+    date = updates.get("due_date")
+    time = updates.get("due_time")
+
+    log_entry = ""
+
+    try:
+        if title:
+            log_entry += f"Title update to: {title}"
+            cursor.execute(
+                """UPDATE tasks SET title = ? WHERE task_id = ? AND user_id = ? """,
+                (title, task_id, user_id),
+            )
+
+        if description:
+            log_entry += f"Description updated to: {description}"
+            cursor.execute(
+                """UPDATE tasks SET description = ? WHERE task_id = ? AND user_id = ? """,
+                (description, task_id, user_id),
+            )
+
+        if date:
+            log_entry += f"Due date updated to: {date}"
+            cursor.execute(
+                """UPDATE tasks SET due_date = ? WHERE task_id = ? AND user_id = ? """,
+                (date, task_id, user_id),
+            )
+
+        if time:
+            log_entry += f"Due time updated to: {time}"
+            cursor.execute(
+                """UPDATE tasks SET due_time = ? WHERE task_id = ? AND user_id = ? """,
+                (time, task_id, user_id),
+            )
+
+        connection.commit()
+    except Exception as e:
+        print(e)
+        return False
+    if log_entry:
+        add_log(task_id, user, log_entry)
+        return True
+    return False
+
+
+def delete_task_by_id(task_id, user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    user_id = user["user_id"]
     try:
         cursor.execute(
-            """UPDATE tasks SET title = ?, description = ?, due_date = ?, due_time = ? WHERE task_id = ? AND user_id = ? ;""",
-            (title, description, date, time, task_id, user_id),
+            """DELETE FROM tasks WHERE task_id = ? AND user_id = ?;""",
+            (task_id, user_id),
         )
         connection.commit()
-        cursor.execute(
-            """INSERT tasks_log VALUES (date, time, comment, user_id, task_id) VALUES (?, ?, ?, ?, ?);""",
-            (today, time, "Task updated", user_id, task_id),
-        )
-        connection.commit()
+        return True
     except Exception as e:
         print(e)
         return False
