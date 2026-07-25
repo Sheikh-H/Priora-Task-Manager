@@ -6,8 +6,7 @@
     <nav>
       <ul>
         {% if session.get('user-id') %}
-        <li><a href="{{ url_for('account') }}">Home</a></li>
-        <li><a href="{{ url_for('home') }}">Tasks</a></li>
+        <li><a href="{{ url_for('account') }}">Inbox</a></li>
         <li>
           <form action="{{ url_for('logout') }}" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />

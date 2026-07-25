@@ -1,4 +1,3 @@
-from codeop import compile_command
 from datetime import datetime, timedelta
 from argon2 import PasswordHasher
 from dotenv import load_dotenv
@@ -6,9 +5,6 @@ from datetime import datetime
 from flask import flash
 import sqlite3
 import os
-
-from flask.cli import F
-from msgspec import T
 
 load_dotenv()
 

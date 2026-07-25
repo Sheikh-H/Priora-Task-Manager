@@ -17,10 +17,20 @@
 
 .user-home-tasks-card{
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     padding: 5px;
     background-color: var(--bg-task-card);
+    border-radius: 7px;
+}
+
+.user-home-tasks-complete-grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 5px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid var(--accent-peach);
 }
 
 .task-button{
@@ -62,7 +72,7 @@
 
 .user-home-tasks-card form {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -75,11 +85,31 @@
     color: black;
 }
 
+.user-home-tasks-card.success{
+    background-color: var(--success);
+}
+.user-home-tasks-card.success p{
+    color: black;
+}
+
+.user-home-tasks-card.incomplete{
+    background-color: var(--warning);
+}
+.user-home-tasks-card.incomplete p{
+    color: black;
+}
+
+.hr-line-2{
+    width: 100%;
+}
+
 .user-home-options{
     justify-content: center;
     align-items: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    padding: 5px;
 }
 
 .user-home-options > a {
@@ -98,11 +128,9 @@
     gap: 5px;
 }
 
-.user-home-options > div > p{
-    font-size: 0.8rem;
-}
 
-.user-home-options > div > svg{
+
+.user-home-options a > div > svg{
     width: 15px;
     fill: var(--primary-text);
 }
@@ -146,6 +174,10 @@
 
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
+    .user-home-tasks-complete-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+    }
 
     .tasks-top-nav {
         display: none;
@@ -175,6 +207,9 @@
 ========================== */
 
 @media screen and (min-width: 1000px) {
+    .user-home-tasks-complete-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
     .tasks-top-nav {
         display: none;

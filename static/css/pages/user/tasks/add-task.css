@@ -1,0 +1,199 @@
+.task-view-section{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.task-view{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+
+}
+
+.task-view form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.task-view form input{
+    width: 100%;
+    font-family: cursive;
+    border: none;
+    border-radius: 3px;
+}
+
+.task-view form textarea{
+    width: 100%;
+    border: none;
+    background-color: white;
+    font-family: cursive;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.task-view-due{
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.task-view-completed{
+    width: 100%;
+}
+
+.task-view-completed input{
+    color: var(--primary-text);
+}
+
+.task-view-due input:nth-child(2){
+    width: 60%;
+}
+
+.task-view-input-box{
+    width: 100%;
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 3px;
+    padding: 1px;
+}
+
+.task-view-buttons-section{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.task-view-button {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    background: none;
+    font-size: 1rem;
+}
+
+.task-view-button.complete{
+    border: 1px solid var(--success);
+}
+.task-view-button.incomplete{
+    border: 1px solid var(--warning);
+}
+
+.task-view-button.delete-task{
+    border: 1px solid var(--danger);
+}
+.task-view-button.save-changes{
+    border: 1px solid var(--info);
+}
+
+.task-view-button svg{
+    width: 15px;
+}
+
+
+.completed-button{
+    fill: var(--success);
+}
+
+.incomplete-button{
+    fill: var(--warning);
+}
+
+.save-changes-button{
+    fill: var(--info);
+}
+
+.delete-button{
+    fill: var(--danger);
+}
+
+.task-log{
+    width: 100%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+}
+
+.log{
+    width: 100%;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+    padding: 5px;
+}
+
+.log-info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.log-description{
+    text-align: center;
+}
+
+
+.add-log-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-log-form textarea {
+    font-family: cursive;
+    padding: 2px;
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+    .task-view-section {
+        align-items: center;
+    }
+
+    .task-view {
+        width: 80%;
+    }
+
+
+
+    .task-log{
+        width: 98vw;
+    }
+
+}
+
+
+/* ==========================
+   Desktop
+========================== */
+
+@media screen and (min-width: 1000px) {
+
+
+}

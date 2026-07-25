@@ -1,0 +1,34 @@
+{% extends 'layout.html' %} {% block content %}
+<section class="user-home-section">
+  <h2>Incomplete Tasks</h2>
+  <div class="user-home-tasks-complete-grid">
+    {% if tasks %} {% for task in tasks %}
+    <a href="{{ url_for('task', task_id = task['task_id']) }}">
+      <div class="user-home-tasks-card incomplete">
+        <form action="" method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
+          <button type="submit" class="task-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              class="task-button-inner"
+            >
+              <path
+                d="m405-436 228-227q18-18 41.5-18t41.5 18q18 18 18 41.5T716-580L447-310q-18 18-42.5 18T362-310L254-419q-18-18-18-41.5t18-41.5q18-18 41.5-18t41.5 18l68 66Z"
+              />
+            </svg>
+          </button>
+          <p>{{ task['title'].title() }}</p>
+          <p>{{ task['due_date'] }} {{ task['due_time'] }}</p>
+        </form>
+      </div>
+    </a>
+    {% endfor %} {% else %}
+    <p>No tasks for tomorrow</p>
+    {% endif %}
+  </div>
+</section>
+<div>{% include 'user-nav.html' %}</div>
+<div class="space"></div>
+{% endblock content %}
