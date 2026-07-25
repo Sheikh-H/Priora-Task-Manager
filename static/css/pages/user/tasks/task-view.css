@@ -105,7 +105,7 @@
 }
 
 .task-log{
-    width: 99vw;
+    width: 100%;
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
@@ -139,19 +139,20 @@
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
     .task-view-section {
-        justify-content: center;
         align-items: center;
-        }
+    }
 
-.task-view {
+    .task-view {
         width: 80%;
     }
 
-        .task-view-button {
-
-            width: 40%;
-
-        }
+    .task-view-button {
+        width: 40%;
+    }
+    
+    .task-log{
+        width: 98vw;
+    }
 
 }
 
