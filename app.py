@@ -26,7 +26,7 @@ from flask import (
     Response,
     abort,
 )
-from services.database import find_user_by_id, get_task_logs
+from services.database import find_user_by_id, get_task_logs, get_all_task_logs
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
 from services.config import initialise
@@ -252,7 +252,16 @@ def task(task_id):
     return render_template("tasks/task-page.html", title=title, task=task, logs=logs)
 
 
-@app.route("/user/task/<int:task_id>/update", methods=["POST", "GET"])
+@app.route("/user/task/<int:task_id>/log", methods=["GET"])
+@login_required
+@password_reset_required
+def all_logs(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    logs = get_all_task_logs(task_id, user)
+    return render_template("tasks/task-log.html", logs=logs)
+
+
+@app.route("/user/task/<int:task_id>/update", methods=["POST"])
 @login_required
 @password_reset_required
 def update_task(task_id):

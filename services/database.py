@@ -335,6 +335,24 @@ def get_task_logs(task_id, user):
     cursor = connection.cursor()
     try:
         cursor.execute(
+            """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date ASC, time ASC LIMIT 5;""",
+            (task_id, user_id),
+        )
+        logs = cursor.fetchall()
+        return logs
+    except Exception as e:
+        print(e)
+        return None
+    finally:
+        connection.close()
+
+
+def get_all_task_logs(task_id, user):
+    user_id = user["user_id"]
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
             """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date ASC, time ASC;""",
             (task_id, user_id),
         )

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %} {% block content %}
+<section class="task-view-section">
+  <div class="task-view-log">
+    <div class="task-log">
+      <p><strong>Task Log</strong></p>
+      <hr />
+      {% if logs %} {% for log in logs %}
+      <div class="log">
+        <div class="log-info">
+          <p>{{ log['date']}}</p>
+          <p>{{ log['time']}}</p>
+        </div>
+        <div class="log-description">
+          <p>{{ log['comment'] }}</p>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <p>No logs for this task</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

@@ -133,7 +133,9 @@
       {% endfor %} {% else %}
       <p>No logs for this task</p>
       {% endif %}
-      <a href=""><p>View all logs</p></a>
+      <a href="{{ url_for('all_logs', task_id = task['task_id'])}}"
+        ><p>View all logs</p></a
+      >
     </div>
   </div>
 </section>
