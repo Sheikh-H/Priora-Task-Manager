@@ -26,7 +26,13 @@ from flask import (
     Response,
     abort,
 )
-from services.database import find_user_by_id, get_task_logs, get_all_task_logs
+from services.database import (
+    find_user_by_id,
+    get_task_logs,
+    get_all_task_logs,
+    add_log,
+    update_task_fields,
+)
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
 from services.config import initialise
@@ -261,6 +267,20 @@ def all_logs(task_id):
     return render_template("tasks/task-log.html", logs=logs)
 
 
+@app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
+@login_required
+@password_reset_required
+def add_task_log(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    comment = request.form.get("comment")
+    update = add_log(task_id, user, comment)
+    if update:
+        flash("Task log added!", "success")
+    else:
+        flash("Unable to add log", "error")
+    return redirect(url_for("task", task_id=task_id))
+
+
 @app.route("/user/task/<int:task_id>/update", methods=["POST"])
 @login_required
 @password_reset_required
@@ -270,18 +290,19 @@ def update_task(task_id):
     description = request.form.get("description", "").strip().lower()
     due_date = request.form.get("due-date")
     due_time = request.form.get("due-time")
-    print(due_date)
-    print(due_time)
-    flash("Task updated", "success")
-    return redirect(url_for("task", task_id=task_id))
+    try:
+        datetime.strptime(due_date, "%Y-%m-%d").date()
+        datetime.strptime(due_time, "%H:%M").time()
+        update = update_task_fields(
+            task_id, user, title, description, due_date, due_time
+        )
+        if update:
+            flash("Task updated successfully!", "success")
+        else:
+            flash("Unable to update task!", "error")
+    except ValueError:
+        flash("Please enter a valid date and/or time", "error")
 
-
-@app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
-@login_required
-@password_reset_required
-def add_ask_log(task_id):
-    user = find_user_by_id(session.get("user-id"))
-    # add a log then refresh page
     return redirect(url_for("task", task_id=task_id))
 
 

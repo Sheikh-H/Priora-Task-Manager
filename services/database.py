@@ -363,3 +363,53 @@ def get_all_task_logs(task_id, user):
         return None
     finally:
         connection.close()
+
+
+def add_log(task_id, user, comment):
+    user_id = user["user_id"]
+    connection = connect_database()
+    cursor = connection.cursor()
+    date = datetime.now().replace(microsecond=0)
+    today = date.date()
+    time = date.time()
+    today = f"{today}"
+    time = f"{time}"
+    try:
+        cursor.execute(
+            """INSERT INTO task_logs (task_id, user_id, comment, date, time) VALUES (?, ?, ?, ?, ?);""",
+            (task_id, user_id, comment, today, time),
+        )
+        connection.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def update_task_fields(task_id, user, title, description, date, time):
+    user_id = user["user_id"]
+    connection = connect_database()
+    cursor = connection.cursor()
+    log_date = datetime.now().replace(microsecond=0)
+    today = log_date.date()
+    today = f"{today}"
+    time = log_date.time()
+    time = f"{time}"
+    try:
+        cursor.execute(
+            """UPDATE tasks SET title = ?, description = ?, due_date = ?, due_time = ? WHERE task_id = ? AND user_id = ? ;""",
+            (title, description, date, time, task_id, user_id),
+        )
+        connection.commit()
+        cursor.execute(
+            """INSERT tasks_log VALUES (date, time, comment, user_id, task_id) VALUES (?, ?, ?, ?, ?);""",
+            (today, time, "Task updated", user_id, task_id),
+        )
+        connection.commit()
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()

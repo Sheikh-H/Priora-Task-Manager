@@ -37,6 +37,7 @@
     background-color: white;
     font-family: cursive;
     border-radius: 3px;
+    padding: 3px;
 }
 
 .task-view-due{
@@ -151,6 +152,17 @@
     text-align: center;
 }
 
+
+.add-log-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-log-form textarea {
+    font-family: cursive;
+    padding: 2px;
+}
 
 /* ==========================
    Tablet
