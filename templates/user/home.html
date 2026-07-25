@@ -30,7 +30,7 @@
     <!-- TODAY -->
 
     <div class="task-column">
-      {% if todays %} {% for task in todays %} {% if overdue %}
+      {% if overdue %}
       <h3>Overdue Tasks</h3>
 
       {% for task in overdue %}
@@ -59,7 +59,7 @@
           </form>
         </div>
       </a>
-      {% endfor %} {% endif %}
+      {% endfor %} {% endif %} {% if todays %} {% for task in todays %}
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card">

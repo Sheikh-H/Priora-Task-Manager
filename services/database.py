@@ -133,7 +133,7 @@ def find_tasks_before_date(date, user_id):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ? and due_date < ? ORDER BY due_date DESC, due_time DESC;""",
+            """SELECT * FROM tasks WHERE completed = 0 AND user_id = ? and due_date < ? ORDER BY due_date ASC, due_time ASC LIMIT 5;""",
             (user_id, date),
         )
         tasks = cursor.fetchall()
@@ -333,8 +333,8 @@ def toggle_task_complete(task_id, user_id):
                 return True
             else:
                 cursor.execute(
-                    """UPDATE tasks SET completed = 1 WHERE user_id = ? AND task_id = ?""",
-                    (user_id, task_id),
+                    """UPDATE tasks SET completed = 1, completion_date = ?, completion_time = ? WHERE user_id = ? AND task_id = ?""",
+                    (day, time, user_id, task_id),
                 )
                 connection.commit()
                 cursor.execute(

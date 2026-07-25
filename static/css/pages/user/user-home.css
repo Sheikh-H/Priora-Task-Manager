@@ -50,6 +50,15 @@
     gap: 5px;
 }
 
+.overdue-title{
+    width: 100%;
+    color: var(--danger);
+    text-align: center;
+}
+
+.overdue-title p{
+    color: var(--danger);
+}
 
 .user-home-tasks-card form {
     display: flex;
@@ -60,6 +69,10 @@
 
 .user-home-tasks-card.overdue{
     background-color: var(--danger);
+}
+
+.user-home-tasks-card.overdue p{
+    color: black;
 }
 
 .user-home-options{

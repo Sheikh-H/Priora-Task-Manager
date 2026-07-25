@@ -254,7 +254,17 @@ def task(task_id):
     task = search_task_by_id(task_id, user)
     title = f"{task['title']}"
     logs = get_task_logs(task_id, user)
-    return render_template("tasks/task-page.html", title=title, task=task, logs=logs)
+    date = datetime.now().replace(microsecond=0).date()
+    today = f"{date}"
+    overdue = bool(task["due_date"] < today)
+    return render_template(
+        "tasks/task-page.html",
+        title=title,
+        task=task,
+        logs=logs,
+        overdue=overdue,
+        today=today,
+    )
 
 
 @app.route("/user/task/<int:task_id>/log", methods=["GET"])
@@ -322,13 +332,15 @@ def update_task(task_id):
     due_date = request.form.get("due-date")
     due_time = request.form.get("due-time")
     updates = {}
-    if task["title"] != title:
+    if task["title"].lower() != title.lower():
         updates["title"] = title
-    if task["description"] != description:
+    if task["description"].lower() != description.lower():
         updates["description"] = description
     if due_date:
         try:
             datetime.strptime(due_date, "%Y-%m-%d").date()
+            if task["due_date"] < due_date:
+                flash("Please enter a valid date")
             if task["due_date"] != due_date:
                 updates["due_date"] = due_date
         except (ValueError, TypeError):
