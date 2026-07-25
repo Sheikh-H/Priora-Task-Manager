@@ -82,7 +82,7 @@
     gap: 10px;
 }
 
-.user-home-options > div {
+.user-home-options > a {
     border: 1px solid var(--accent-green);
     border-radius: 10px;
     padding: 5px;
@@ -90,6 +90,11 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+    gap: 5px;
+}
+
+.user-home-options > a > div{
+    display: flex;
     gap: 5px;
 }
 

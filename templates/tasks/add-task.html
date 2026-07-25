@@ -1,12 +1,23 @@
-<section>
-  <h1>Add a new task</h1>
-  <form>
-    <input
-      type="text"
-      name="task-title"
-      id="task-title"
-      required
-      maxlength="25"
-    />
-  </form>
+{% extends 'layout.html' %} {% block content %}
+<section class="task-view-section">
+  <div class="task-view">
+    <form action="{{ url_for('add_task')}}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <p><strong>Add a new task:</strong></p>
+      <div class="task-view-input-box">
+        <p>Title:</p>
+        <input type="text" name="title" id="title" />
+      </div>
+      <p>Description</p>
+      <textarea name="description" id="description" rows="5"></textarea>
+      <p>Due:</p>
+      <div class="task-view-due">
+        <input type="date" name="due-date" id="due-date" min="{{today}}" />
+        <input type="time" name="due-time" id="due-time" />
+      </div>
+      <input type="submit" value="Add task" />
+    </form>
+  </div>
 </section>
+
+{% endblock content %}

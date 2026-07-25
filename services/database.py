@@ -8,6 +8,7 @@ import sqlite3
 import os
 
 from flask.cli import F
+from msgspec import T
 
 load_dotenv()
 
@@ -471,6 +472,83 @@ def delete_task_by_id(task_id, user):
         )
         connection.commit()
         return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def add_new_task(user, **task):
+    connection = connect_database()
+    cursor = connection.cursor()
+    task_id = ""
+    try:
+        cursor.execute(
+            """INSERT INTO tasks (user_id, title, description, due_date, due_time) VALUES (?,?,?,?,?);""",
+            (
+                user["user_id"],
+                task["title"],
+                task["description"],
+                task["due_date"],
+                task["due_time"],
+            ),
+        )
+        connection.commit()
+        task_id = cursor.lastrowid
+        add_log(task_id, user, "Task Added")
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def get_completed_tasks(user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ? and completed = 1 ORDER BY due_date DESC, due_time DESC;""",
+            (user["user_id"],),
+        )
+        tasks = cursor.fetchall()
+        return tasks
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def get_incomplete_tasks(user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ? and completed = 0 ORDER BY due_date DESC, due_time DESC;""",
+            (user["user_id"],),
+        )
+        tasks = cursor.fetchall()
+        return tasks
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+
+
+def get_all_tasks(user):
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM tasks WHERE user_id = ? and completed = 0 ORDER BY due_date DESC, due_time DESC;""",
+            (user["user_id"],),
+        )
+        tasks = cursor.fetchall()
+        return tasks
     except Exception as e:
         print(e)
         return False

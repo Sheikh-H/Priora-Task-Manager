@@ -35,6 +35,10 @@ from services.database import (
     add_log,
     update_task_fields,
     delete_task_by_id,
+    add_new_task,
+    get_all_tasks,
+    get_completed_tasks,
+    get_incomplete_tasks,
 )
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
@@ -229,6 +233,46 @@ def account():
         user=user,
         overdue=overdue,
     )
+
+
+@app.route("/user/tasks/add-task", methods=["GET", "POST"])
+@login_required
+@password_reset_required
+def add_task():
+    title = "Add a new task"
+    user = find_user_by_id(session.get("user-id"))
+    task = {}
+    if request.method == "POST":
+        task_title = request.form.get("title", "").strip().lower()
+        task_description = request.form.get("description", "").strip().lower()
+        due_date = request.form.get("due-date", "").strip()
+        due_time = request.form.get("due-time", "").strip()
+        date = datetime.now().replace(microsecond=0)
+        today = f"{date.date()}"
+        if due_date < today:
+            flash("Please enter a valid date!", "error")
+            return redirect(url_for("add_task"))
+        if not task_title:
+            flash("Enter a task title!", "error")
+            return redirect(url_for("add_task"))
+
+        if len(task_title) > 20:
+            flash("Title must be under 20 characters!", "error")
+            return redirect(url_for("add_task"))
+
+        task["title"] = task_title
+        task["description"] = task_description
+        task["due_date"] = due_date
+        task["due_time"] = due_time
+
+        success = add_new_task(user, **task)
+        if success:
+            flash("Task added!", "success")
+            return redirect(url_for("account"))
+        flash("Unable to add task!", "error")
+        return redirect(url_for("add_task"))
+
+    return render_template("tasks/add-task.html", title=title)
 
 
 @app.route("/user/tasks/tomorrow", methods=["GET", "POST"])
