@@ -252,6 +252,21 @@ def task(task_id):
     return render_template("tasks/task-page.html", title=title, task=task, logs=logs)
 
 
+@app.route("/user/task/<int:task_id>/update", methods=["POST", "GET"])
+@login_required
+@password_reset_required
+def update_task(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    title = request.form.get("title", "").strip().lower()
+    description = request.form.get("description", "").strip().lower()
+    due_date = request.form.get("due-date")
+    due_time = request.form.get("due-time")
+    print(due_date)
+    print(due_time)
+    flash("Task updated", "success")
+    return redirect(url_for("task", task_id=task_id))
+
+
 @app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
 @login_required
 @password_reset_required

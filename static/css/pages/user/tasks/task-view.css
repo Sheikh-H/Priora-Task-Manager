@@ -74,19 +74,39 @@
 
 .task-view-buttons-section{
     width: 100%;
-    border: 1px solid white;
     display: flex;
     justify-content: space-evenly;
+    gap: 5px;
 }
 
 .task-view-button {
-    border-radius: 3px;
     display: flex;
-    gap: 10px;
-    width: 50%;
+    gap: 5px;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
 }
+
+.task-view-button.complete{
+    border: 1px solid var(--success);
+}
+.task-view-button.incomplete{
+    border: 1px solid var(--warning);
+}
+
+.task-view-button.delete-task{
+    border: 1px solid var(--danger);
+}
+.task-view-button.save-changes{
+    border: 1px solid var(--info);
+}
+
+.task-view-button svg{
+    width: 15px;
+}
+
 
 .completed-button{
     fill: var(--success);
@@ -146,10 +166,8 @@
         width: 80%;
     }
 
-    .task-view-button {
-        width: 40%;
-    }
-    
+
+
     .task-log{
         width: 98vw;
     }
