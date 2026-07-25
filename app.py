@@ -26,7 +26,7 @@ from flask import (
     Response,
     abort,
 )
-from services.database import find_user_by_email, find_user_by_id
+from services.database import find_user_by_id, get_task_logs
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
 from services.config import initialise
@@ -248,7 +248,8 @@ def task(task_id):
     user = find_user_by_id(session.get("user-id"))
     task = search_task_by_id(task_id, user)
     title = f"{task['title']}"
-    return render_template("tasks/task-page.html", title=title, task=task)
+    logs = get_task_logs(task_id, user)
+    return render_template("tasks/task-page.html", title=title, task=task, logs=logs)
 
 
 @app.route("/user/task/<int:task_id>/add-log", methods=["POST"])

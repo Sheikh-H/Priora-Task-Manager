@@ -3,23 +3,83 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 
 .task-view{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 10px;
+    width: 100%;
+
 }
 
-.button-section{
-    width: 100%;
+.task-view form{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.task-view form input{
+    width: 100%;
+    font-family: cursive;
+    border: none;
+    border-radius: 3px;
+}
+
+.task-view form textarea{
+    width: 100%;
+    border: none;
+    background-color: white;
+    font-family: cursive;
+    border-radius: 3px;
+}
+
+.task-view-due{
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.task-view-completed{
+    width: 100%;
+}
+
+.task-view-completed input{
+    color: var(--primary-text);
+}
+
+.task-view-due input:nth-child(2){
+    width: 60%;
+}
+
+.task-view-input-box{
+    width: 100%;
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 3px;
+    padding: 1px;
+}
+
+.task-view-buttons-section{
+    width: 100%;
+    border: 1px solid white;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .task-view-button {
-    border: 1px solid black;
     border-radius: 3px;
     display: flex;
     gap: 10px;
@@ -28,8 +88,24 @@
     align-items: center;
 }
 
+.completed-button{
+    fill: var(--success);
+}
+
+.incomplete-button{
+    fill: var(--warning);
+}
+
+.save-changes-button{
+    fill: var(--info);
+}
+
+.delete-button{
+    fill: var(--danger);
+}
+
 .task-log{
-    width: 100%;
+    width: 99vw;
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
@@ -62,7 +138,20 @@
 
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
+    .task-view-section {
+        justify-content: center;
+        align-items: center;
+        }
 
+.task-view {
+        width: 80%;
+    }
+
+        .task-view-button {
+
+            width: 40%;
+
+        }
 
 }
 

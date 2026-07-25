@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from argon2 import PasswordHasher
 from dotenv import load_dotenv
 from datetime import datetime
@@ -289,12 +290,23 @@ def toggle_task_complete(task_id, user_id):
     task = find_task_by_id(task_id, user_id)
     connection = connect_database()
     cursor = connection.cursor()
+    date = datetime.now().replace(microsecond=0)
+    day = date.date()
+    time = date.time()
+    day = f"{day}"
+    time = f"{time}"
     if task:
         try:
             if task["completed"]:
                 cursor.execute(
                     """UPDATE tasks SET completed = 0 WHERE user_id = ? AND task_id = ?""",
                     (user_id, task_id),
+                )
+                connection.commit()
+
+                cursor.execute(
+                    """INSERT INTO task_logs (date, time, comment, user_id, task_id) VALUES (?,?,?,?,?);""",
+                    (day, time, "Task marked as incomplete", user_id, task_id),
                 )
                 connection.commit()
                 return True
@@ -304,9 +316,32 @@ def toggle_task_complete(task_id, user_id):
                     (user_id, task_id),
                 )
                 connection.commit()
+                cursor.execute(
+                    """INSERT INTO task_logs (date, time, comment, user_id, task_id) VALUES (?,?,?,?,?);""",
+                    (day, time, "Task marked as complete", user_id, task_id),
+                )
+                connection.commit()
                 return True
         except Exception as e:
             print(e)
             return False
         finally:
             connection.close()
+
+
+def get_task_logs(task_id, user):
+    user_id = user["user_id"]
+    connection = connect_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            """SELECT * FROM task_logs WHERE task_id = ? AND user_id = ? ORDER BY date ASC, time ASC;""",
+            (task_id, user_id),
+        )
+        logs = cursor.fetchall()
+        return logs
+    except Exception as e:
+        print(e)
+        return None
+    finally:
+        connection.close()
