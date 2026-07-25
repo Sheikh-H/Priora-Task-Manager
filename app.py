@@ -241,7 +241,7 @@ def tomorrows_tasks():
     return render_template("tasks/tomorrows-tasks.html", title=title, tasks=tasks)
 
 
-@app.route("/user/task/<int:task_id>")
+@app.route("/user/task/<int:task_id>", methods=["GET", "POST"])
 @login_required
 @password_reset_required
 def task(task_id):
@@ -249,6 +249,15 @@ def task(task_id):
     task = search_task_by_id(task_id, user)
     title = f"{task['title']}"
     return render_template("tasks/task-page.html", title=title, task=task)
+
+
+@app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
+@login_required
+@password_reset_required
+def add_ask_log(task_id):
+    user = find_user_by_id(session.get("user-id"))
+    # add a log then refresh page
+    return redirect(url_for("task", task_id=task_id))
 
 
 @app.route("/logout", methods=["POST"])
