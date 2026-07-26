@@ -1,14 +1,98 @@
-.about-section {
-    height: 85vh;
+.about-intro-section{
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
 }
 
+.about-how-section{
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   gap: 25px;
+}
 
-/* ==========================
-   Desktop
-========================== */
+.section-header{
+   width: 100%;
+   text-align: center;
+}
 
-@media screen and (min-width: 1000px) {
+.section-header svg{
+   fill: #94B9FF;
+   width: 150px;
+}
 
+.about-intro-top h1:nth-child(1){
+   font-size: 4rem;
+}
+
+.about-intro-top h1:nth-child(2){
+   font-size: 1.5rem;
+}
+
+.about-slider-item{
+   display: flex;
+   gap: 15px;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+}
+
+.about-slider-item svg{
+   fill: #94B9FF;
+   width: 100px;
+}
+
+.about-how-arrow{
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.about-how-arrow svg{
+   fill: #94B9FF;
+   width: 100px;
+}
+
+.about-security-section{
+   padding: 10px;
+}
+
+.security-info-bottom{
+   text-align: center;
+}
+
+.security-list{
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.security-item{
+   display: flex;
+   gap: 10px;
+   justify-content: center;
+   align-items: center;
+}
+
+.security-item p{
+   font-size: 1.5rem;
+}
+
+.security-item svg{
+   width: 100px;
+   fill: #94B9FF;
+}
+
+.about-cta{
+   padding: 10px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   gap: 25px;
+   justify-content: center;
+   align-items: center;
 }
 
 
@@ -19,3 +103,42 @@
 @media screen and (min-width: 700px) and (max-width: 999px) {
 
 }
+
+/* ==========================
+   Desktop
+========================== */
+
+@media screen and (min-width: 1000px) {
+   .about-intro-section{
+      justify-content: center;
+      align-items: center;
+   }
+
+   .about-intro-top {
+      width: 50%;
+   }
+
+   .about-how-bottom{
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+   }
+
+   .about-slider{
+      width: 40%;
+   }
+
+   .security-list{
+      gap: 35px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 25px;
+   }
+
+
+}
+
+

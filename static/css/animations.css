@@ -117,6 +117,26 @@
     transform: translateX(0)
 }
 
+
+@keyframes hovering {
+    0%{
+        transform: translateY(30px);
+    }
+    50%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(30px);
+    }
+}
+
+.why-priora-image{
+    animation: hovering 5s ease-in-out infinite;
+}
+
+
+
+
 /* ==========================
    Tablet
 ========================== */
