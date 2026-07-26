@@ -36,10 +36,10 @@ from services.database import (
     update_task_fields,
     delete_task_by_id,
     add_new_task,
-    get_all_tasks,
     get_completed_tasks,
     get_incomplete_tasks,
     search_for_tasks,
+    get_all_tasks,
 )
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
@@ -238,7 +238,9 @@ def change_password():
 def account():
     title = "Welcome Back!"
     user = find_user_by_id(session.get("user-id"))
+
     new_user = bool(user["new_user"])
+
     tasks = load_tasks(user)
 
     date = datetime.now().replace(microsecond=0).date()
@@ -300,8 +302,8 @@ def add_task():
 
         task["title"] = task_title
         task["description"] = task_description
-        task["due_date"] = due_date
-        task["due_time"] = due_time
+        task["due_date"] = f"{due_date}"
+        task["due_time"] = f"{due_time}"
 
         success = add_new_task(user, **task)
         if success:
@@ -368,12 +370,12 @@ def task_complete(task_id):
     success = mark_as_complete(task_id, user)
     if success and not completed:
         flash("Task marked as complete!", "success")
-        return redirect(url_for("task", task_id=task_id))
+        return redirect(request.referrer or url_for("account"))
     if success and completed:
         flash("Task marked as incomplete!", "success")
-        return redirect(url_for("task", task_id=task_id))
+        return redirect(request.referrer or url_for("account"))
     flash("Unable to update task", "error")
-    return redirect(url_for("task", task_id=task_id))
+    return redirect(request.referrer or url_for("account"))
 
 
 @app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
@@ -433,7 +435,7 @@ def update_task(task_id):
             datetime.strptime(time_entered, "%H:%M").time()
             if task["due_time"] != time_entered:
                 updates["due_time"] = time_entered
-            
+
         except (ValueError, TypeError):
             flash("Please enter a valid time!", "error")
     success = update_task_fields(task_id, user, **updates)

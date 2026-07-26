@@ -31,11 +31,12 @@
       {% if overdue %} {% for task in overdue %}
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card overdue">
-          <form action="" method="post">
+          <form
+            action="{{ url_for('task_complete', task_id = task['task_id']) }}"
+            method="post"
+          >
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-
             <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
-
             <button type="submit" class="task-button">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,9 +48,7 @@
                 />
               </svg>
             </button>
-
             <p>{{ task['title'].title() }}</p>
-
             <p>{{ task['due_date'] }} {{ task['due_time'] }}</p>
           </form>
         </div>
@@ -60,7 +59,10 @@
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card">
-          <form action="" method="post">
+          <form
+            action="{{ url_for('task_complete', task_id = task['task_id']) }}"
+            method="post"
+          >
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
             <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
@@ -99,7 +101,10 @@
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card">
-          <form action="" method="post">
+          <form
+            action="{{ url_for('task_complete', task_id = task['task_id']) }}"
+            method="post"
+          >
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
             <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
@@ -136,7 +141,10 @@
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
         <div class="user-home-tasks-card">
-          <form action="" method="post">
+          <form
+            action="{{ url_for('task_complete', task_id = task['task_id']) }}"
+            method="post"
+          >
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
             <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />

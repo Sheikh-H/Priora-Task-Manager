@@ -36,11 +36,16 @@
   </div>
   <div class="user-home-tasks-complete-grid">
     {% if tasks %} {% for task in tasks %}
-    <a href="{{ url_for('task', task_id=task['task_id']) }}">
+
+    <a href="{{ url_for('task', task_id = task['task_id']) }}">
       <div
         class="user-home-tasks-card{% if task['completed'] == 1 %} success {% elif task['due_date'] < today %} danger {% endif %}"
+        data-url="{{ url_for('task', task_id=task['task_id']) }}"
       >
-        <form action="" method="post">
+        <form
+          action="{{ url_for('task_complete', task_id = task['task_id']) }}"
+          method="post"
+        >
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
           <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
 
@@ -48,7 +53,7 @@
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 -960 960 960"
-              class="task-button-inner"
+              class="task-button-inner {% if task['completed'] == 1 %}active{% endif %}"
             >
               <path
                 d="m405-436 228-227q18-18 41.5-18t41.5 18q18 18 18 41.5T716-580L447-310q-18 18-42.5 18T362-310L254-419q-18-18-18-41.5t18-41.5q18-18 41.5-18t41.5 18l68 66Z"
@@ -61,6 +66,7 @@
         </form>
       </div>
     </a>
+
     {% endfor %} {% else %}
 
     <div class="empty-column"></div>

@@ -5,7 +5,10 @@
     {% if tasks %} {% for task in tasks %}
     <a href="{{ url_for('task', task_id = task['task_id']) }}">
       <div class="user-home-tasks-card success">
-        <form action="" method="post">
+        <form
+          action="{{ url_for('task_complete', task_id = task['task_id']) }}"
+          method="post"
+        >
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
           <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />
           <button type="submit" class="task-button">
@@ -25,9 +28,9 @@
       </div>
     </a>
     {% endfor %} {% else %}
-        <div class="empty-column"></div>
+    <div class="empty-column"></div>
     <div class="no-tasks">
-    <p>No completed tasks!</p>
+      <p>No completed tasks!</p>
     </div>
     <div class="empty-column"></div>
     {% endif %}

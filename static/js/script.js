@@ -211,6 +211,7 @@ if (changePasswordForm) {
 }
 
 const taskButtons = document.querySelectorAll(".task-button");
+
 if (taskButtons) {
   taskButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -219,3 +220,15 @@ if (taskButtons) {
     });
   });
 }
+
+const taskCards = document.querySelectorAll(".user-home-tasks-card");
+
+taskCards.forEach((card) => {
+  card.addEventListener("click", (event) => {
+    if (event.target.closest("form")) {
+      return;
+    }
+
+    window.location = card.dataset.url;
+  });
+});

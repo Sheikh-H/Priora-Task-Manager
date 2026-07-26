@@ -478,7 +478,9 @@ def delete_task_by_id(task_id, user):
 def add_new_task(user, **task):
     connection = connect_database()
     cursor = connection.cursor()
-    task_id = ""
+    
+    print(bool(user['new_user']))
+    
     try:
         cursor.execute(
             """INSERT INTO tasks (user_id, title, description, due_date, due_time) VALUES (?,?,?,?,?);""",
@@ -489,6 +491,10 @@ def add_new_task(user, **task):
                 task["due_date"],
                 task["due_time"],
             ),
+        )
+        cursor.execute(
+            """UPDATE users SET new_user = 0 WHERE user_id = ?;""",
+            (user["user_id"],),
         )
         connection.commit()
         task_id = cursor.lastrowid
