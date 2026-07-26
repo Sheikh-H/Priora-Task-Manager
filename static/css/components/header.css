@@ -65,7 +65,7 @@
     border: none;
     background: none;
     color: var(--primary-text);
-    font-family: cursive;
+    font-family: "Nunito";
     font-weight: bold;
     font-size: 0.8rem;
 }

@@ -76,7 +76,7 @@ html {
 
 body {
     background-color: var(--bg-color);
-    font-family: cursive;
+    font-family: "Nunito";
     overflow-x: hidden;
 }
 

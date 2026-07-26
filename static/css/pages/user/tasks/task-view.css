@@ -184,7 +184,7 @@
 }
 
 .add-log-form textarea {
-    font-family: cursive;
+    font-family: "Nunito";
     padding: 2px;
     border: 1px solid #94B9FF;
     border-radius: 5px;
@@ -193,7 +193,7 @@
 .add-log-form input{
     border: none;
     padding:5px;
-    font-family: cursive;
+    font-family: "Nunito";
 }
 
 /* ==========================
