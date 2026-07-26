@@ -90,12 +90,12 @@ h6 {
 }
 
 h1 {
-    font-family: 'Leckerli One', cursive;
+    font-family: 'Leckerli One', 'Nunito';
 }
 
 p {
     color: var(--secondary-text);
-    font-family: cursive;
+    font-family: "Nunito";
 }
 
 a {

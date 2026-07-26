@@ -13,7 +13,7 @@
 
 .all-tasks-filters form input{
     width: 100%;
-    font-family: cursive;
+    font-family: "Nunito";
     border-radius: 5px;
     border: none;
     padding: 2px;
@@ -22,7 +22,7 @@
 
 
 .all-tasks-filters form select{
-    font-family: cursive;
+    font-family: "Nunito";
     border:none;
     border-radius: 5px;
     border-bottom: 1px solid #94B9FF;
@@ -31,7 +31,7 @@
 .search-task-button{
     border-radius: 5px;
     display: flex;
-    font-family: curisve;
+    font-family: "Nunito";
     font-size: 1rem;;
     justify-content: center;
     align-items: center;

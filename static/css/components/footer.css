@@ -32,7 +32,7 @@
 .footer-top strong {
     font-size: 1rem;
     font-weight: bold;
-    font-family: 'Leckerli One', cursive;
+    font-family: 'Leckerli One', "Nunito";
     color: var(--primary-text);
 }
 
@@ -50,7 +50,7 @@
     background: none;
     border: none;
     color: var(--primary-text);
-    font-family: cursive;
+    font-family: "Nunito";
 }
 
 .logout-button-footer:hover {
