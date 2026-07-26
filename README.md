@@ -1,4 +1,4 @@
-# 🌱 Priora: Full-Stack Task Management Application
+# ✅ Priora: Full-Stack Task Management Application
 
 <p align="center">
   <b>A full-stack task management application built with Flask, SQLite, JavaScript, and modern web development practices.</b><br>
@@ -165,9 +165,9 @@ Priora/
 
 ---
 
-# ⚙️ How The Application Works
+## ⚙️ How The Application Works
 
-## Flask Routes (`app.py`)
+### Flask Routes (`app.py`)
 
 The Flask application acts as the connection between the user interface and backend services.
 
@@ -194,13 +194,13 @@ The database service manages communication with SQLite.
 
 It contains functions responsible for:
 
-Creating database tables.
-Adding users.
-Searching users.
-Creating tasks.
-Updating tasks.
-Removing tasks.
-Retrieving task history.
+- Creating database tables.
+- Adding users.
+- Searching users.
+- Creating tasks.
+- Updating tasks.
+- Removing tasks.
+- Retrieving task history.
 
 Using a separate database layer keeps SQL operations away from application routes, making the project easier to maintain.
 
@@ -212,7 +212,7 @@ Its purpose is to handle task-related logic.
 
 Examples:
 
-Loading Tasks
+### Loading Tasks
 
 Retrieves active tasks belonging to the logged-in user.
 
@@ -220,10 +220,10 @@ Retrieves active tasks belonging to the logged-in user.
 
 Allows tasks to be filtered by:
 
-Date.
-Completion status.
-Task ID.
-Completing Tasks
+- Date.
+- Completion status.
+- Task ID.
+- Completing Tasks
 
 Updates the task status and creates a log entry recording the change.
 
@@ -241,9 +241,9 @@ Passwords are never stored as plain text.
 
 Priora uses:
 
-Argon2 password hashing.
-Secure password verification.
-Password reset protection.
+- Argon2 password hashing.
+- Secure password verification.
+- Password reset protection.
 
 Argon2 is designed specifically for password security and helps protect user credentials if database information is exposed.
 
@@ -253,22 +253,22 @@ User sessions are protected using Flask session management.
 
 Implemented security features include:
 
-HTTP-only cookies.
-Secure cookies.
-SameSite cookie restrictions.
-Session expiration.
-Protected routes.
-CSRF Protection
+- HTTP-only cookies.
+- Secure cookies.
+- SameSite cookie restrictions.
+- Session expiration.
+- Protected routes.
+- CSRF Protection
 
 Priora uses Flask-WTF CSRF protection.
 
 Sensitive actions require valid CSRF tokens, including:
 
-Logging out.
-Creating tasks.
-Updating tasks.
-Deleting tasks.
-Changing task completion status.
+- Logging out.
+- Creating tasks.
+- Updating tasks.
+- Deleting tasks.
+- Changing task completion status.
 
 This helps prevent malicious websites from submitting unwanted requests on behalf of users.
 
@@ -276,10 +276,10 @@ This helps prevent malicious websites from submitting unwanted requests on behal
 
 Database security measures include:
 
-Parameterised SQL queries.
-Foreign key relationships.
-User ownership checks.
-SQLite foreign key enforcement.
+- Parameterised SQL queries.
+- Foreign key relationships.
+- User ownership checks.
+- SQLite foreign key enforcement.
 
 Users can only access and modify their own tasks.
 
@@ -312,26 +312,26 @@ Priora uses three main database tables.
 
 Stores account information.
 
-user_id
-first_name
-last_name
-email
-password
-date_created
+- user_id
+- first_name
+- last_name
+- email
+- password
+- date_created
 
 ### Tasks Table
 
 Stores user tasks.
 
-task_id
-user_id
-title
-description
-due_date
-due_time
-completed
-completion_date
-completion_time
+- task_id
+- user_id
+- title
+- description
+- due_date
+- due_time
+- completed
+- completion_date
+- completion_time
 
 ## Requirements
 
@@ -383,14 +383,18 @@ Environment variables should be stored securely through the hosting provider.
 
 Possible future improvements include:
 
-Migrating from SQLite to PostgreSQL.
-Adding task categories.
-Adding task priority levels.
-Adding email notifications.
-Adding automated testing.
-Adding database migrations.
-Creating a mobile application.
-Improving accessibility features.
+- Migrating from SQLite to PostgreSQL.
+- Adding task categories.
+- Adding task priority levels.
+- Adding email notifications.
+- Adding automated testing.
+- Adding database migrations.
+- Creating a mobile application.
+- Improving accessibility features.
+- Adding user profile management.
+- Improving task sorting options.
+- Adding API endpoints.
+- Adding automated deployment pipelines.
 
 ---
 
