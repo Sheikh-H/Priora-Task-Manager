@@ -135,8 +135,6 @@
     gap: 5px;
 }
 
-
-
 .user-home-options a > div > svg{
     width: 15px;
     fill: var(--primary-text);
@@ -166,7 +164,7 @@
 }
 
 .no-tasks{
-    width: 100%;
+    width: 100vw;
 }
 
 .tasks-top-nav {

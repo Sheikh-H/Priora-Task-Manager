@@ -28,13 +28,6 @@
     border-bottom: 1px solid #94B9FF;
 }
 
-.search-empty{
-    width: 100%;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-}
-
 .search-task-button{
     border-radius: 5px;
     display: flex;

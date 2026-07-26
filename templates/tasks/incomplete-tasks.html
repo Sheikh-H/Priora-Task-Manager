@@ -25,7 +25,11 @@
       </div>
     </a>
     {% endfor %} {% else %}
-    <p>No incomplete tasks!</p>
+    <div class="empty-column"></div>
+    <div class="no-tasks">
+      <p>No incomplete tasks!</p>
+    </div>
+    <div class="empty-column"></div>
     {% endif %}
   </div>
 </section>

@@ -26,9 +26,7 @@
 
   <div class="user-home-tasks-grid">
     {% if tasks and not new_user %}
-
     <!-- TODAY -->
-
     <div class="task-column">
       {% if overdue %} {% for task in overdue %}
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
@@ -87,7 +85,11 @@
       </a>
       {% endfor %} {% else %}
 
-      <p>No tasks for today</p>
+      <div class="empty-column"></div>
+      <div class="no-tasks">
+        <p>No tasks for today</p>
+      </div>
+      <div class="empty-column"></div>
 
       {% endif %}
     </div>
@@ -113,7 +115,7 @@
                 <path
                   d="m405-436 228-227q18-18 41.5-18t41.5 18q18 18 18 41.5T716-580L447-310q-18 18-42.5 18T362-310L254-419q-18-18-18-41.5t18-41.5q18-18 41.5-18t41.5 18l68 66Z"
                 />
-              </svg>
+              </svg> 
             </button>
 
             <p>{{ task['title'].title() }}</p>
@@ -123,8 +125,11 @@
         </div>
       </a>
       {% endfor %} {% else %}
-
-      <p>No tasks for tomorrow</p>
+      <div class="empty-column"></div>
+      <div class="no-tasks">
+        <p>No tasks for tomorrow</p>
+      </div>
+      <div class="empty-column"></div>
 
       {% endif %}
     </div>
@@ -160,8 +165,11 @@
       </a>
       {% endfor %} {% else %}
 
-      <p>No tasks scheduled for later</p>
-
+      <div class="empty-column"></div>
+      <div class="no-tasks">
+        <p>No tasks scheduled for later</p>
+      </div>
+      <div class="empty-column"></div>
       {% endif %}
     </div>
 
