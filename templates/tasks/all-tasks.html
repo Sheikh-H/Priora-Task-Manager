@@ -1,11 +1,44 @@
 {% extends 'layout.html' %} {% block content %}
 <section class="user-home-section">
   <h2>All Tasks</h2>
+  <div class="all-tasks-filters">
+    <form action="{{ url_for('all_tasks') }}" method="GET">
+      <input
+        type="text"
+        name="search"
+        id="search"
+        value="{{ search }}"
+        placeholder="Search task title"
+      />
+      <input type="date" name="date" id="date" value="{{ search_date }}" />
+      <select name="completed" id="completed" value="{{ completed }}">
+        <option value="">All Tasks</option>
+        <option value="1">Completed</option>
+        <option value="0">Incomplete</option>
+      </select>
+      <div></div>
+      <button type="submit" class="search-task-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#1f1f1f"
+        >
+          <path
+            d="M372-297q-118 0-200.5-82.5T89-580q0-118 82.5-200.5T372-863q118 0 200.5 82.5T655-580q0 46-12 83.5T611-431l216 217q18 19 18 44.5T826-126q-18 18-44 18t-44-18L523-341q-29 20-67.5 32T372-297Zm0-126q66 0 111.5-45.5T529-580q0-66-45.5-111.5T372-737q-66 0-111.5 45.5T215-580q0 66 45.5 111.5T372-423Z"
+          />
+        </svg>
+        Search
+      </button>
+      <div></div>
+    </form>
+  </div>
   <div class="user-home-tasks-complete-grid">
     {% if tasks %} {% for task in tasks %}
     <a href="{{ url_for('task', task_id=task['task_id']) }}">
       <div
-        class="user-home-tasks-card{% if task['completed'] == 1 %} success{% elif task['due_date'] < today %} incomplete{% endif %}"
+        class="user-home-tasks-card{% if task['completed'] == 1 %} success {% elif task['due_date'] < today %} danger {% endif %}"
       >
         <form action="" method="post">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
@@ -29,7 +62,11 @@
       </div>
     </a>
     {% endfor %} {% else %}
-    <p>No completed tasks!</p>
+    <div></div>
+    <div class="search-empty">
+      <p>No tasks found!</p>
+    </div>
+    <div></div>
     {% endif %}
   </div>
 </section>

@@ -39,6 +39,7 @@ from services.database import (
     get_all_tasks,
     get_completed_tasks,
     get_incomplete_tasks,
+    search_for_tasks,
 )
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from datetime import timedelta, datetime
@@ -181,9 +182,12 @@ def reset_password():
 def all_tasks():
     user = find_user_by_id(session.get("user-id"))
     title = "All Tasks"
-    tasks = get_all_tasks(user)
     date = datetime.now().replace(microsecond=0).date()
-    today = f"{date}"
+    today = str(date)
+    search = request.args.get("search", "").lower().strip()
+    search_date = request.args.get("date", "").strip()
+    search_filter = request.args.get("completed", "")
+    tasks = search_for_tasks(user, search, search_date, search_filter)
     return render_template(
         "tasks/all-tasks.html", title=title, tasks=tasks, today=today
     )
@@ -407,27 +411,29 @@ def update_task(task_id):
     task = find_task_by_id(task_id, user["user_id"])
     title = request.form.get("title", "").strip().lower()
     description = request.form.get("description", "").strip().lower()
-    due_date = request.form.get("due-date")
-    due_time = request.form.get("due-time")
+    date_entered = request.form.get("due-date", "")
+    time_entered = request.form.get("due-time", "")
     updates = {}
     if task["title"].lower() != title.lower():
         updates["title"] = title
     if task["description"].lower() != description.lower():
         updates["description"] = description
-    if due_date:
+    if date_entered:
         try:
-            datetime.strptime(due_date, "%Y-%m-%d").date()
-            if task["due_date"] < due_date:
+            datetime.strptime(date_entered, "%Y-%m-%d").date()
+            if task["due_date"] > date_entered:
                 flash("Please enter a valid date")
-            if task["due_date"] != due_date:
-                updates["due_date"] = due_date
+                return redirect(url_for("update_task", task_id=task_id))
+            if task["due_date"] != date_entered:
+                updates["due_date"] = date_entered
         except (ValueError, TypeError):
             flash("Please enter a valid date!", "error")
-    if due_time:
+    if time_entered:
         try:
-            datetime.strptime(due_time, "%H:%M").time()
-            if task["due_time"] != due_time:
-                updates["due_time"] = due_time
+            datetime.strptime(time_entered, "%H:%M").time()
+            if task["due_time"] != time_entered:
+                updates["due_time"] = time_entered
+            
         except (ValueError, TypeError):
             flash("Please enter a valid time!", "error")
     success = update_task_fields(task_id, user, **updates)

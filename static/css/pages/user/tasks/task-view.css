@@ -12,7 +12,6 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-
 }
 
 .task-view form{
@@ -20,8 +19,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
+}
+
+.task-view-input-box {
+    width: 100%;
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 3px;
+    padding: 1px;
+    border-bottom: 1px solid #94B9FF;
 }
 
 .task-view form input{
@@ -38,6 +51,7 @@
     font-family: cursive;
     border-radius: 3px;
     padding: 3px;
+    border-bottom: 1px solid #94B9FF;
 }
 
 .task-view-due{
@@ -48,36 +62,42 @@
     gap: 25px;
 }
 
-.task-view-completed{
-    width: 100%;
+
+.task-view-due input:nth-child(1) {
+    border-bottom: 1px solid #94B9FF;
 }
 
-.task-view-completed input{
-    color: var(--primary-text);
+.task-view-due input:nth-child(2) {
+    border-bottom: 1px solid #94B9FF;
 }
 
-.task-view-due input:nth-child(2){
+.task-view-due input:nth-child(2) {
     width: 60%;
 }
 
-.task-view-input-box{
+.task-view-completed{
     width: 100%;
     display: flex;
-    font-size: 0.8rem;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    font-weight: bold;
-    background-color: white;
-    border-radius: 3px;
-    padding: 1px;
+}
+
+.date-completed {
+    color: var(--primary-text);
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    width: 30%;
+    background-color: gray;
+    border-bottom: 1px solid #94B9FF;
 }
 
 .task-view-buttons-section{
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    gap: 5px;
 }
 
 .task-view-button {
@@ -95,6 +115,7 @@
 .task-view-button.complete{
     border: 1px solid var(--success);
 }
+
 .task-view-button.incomplete{
     border: 1px solid var(--warning);
 }
@@ -102,6 +123,7 @@
 .task-view-button.delete-task{
     border: 1px solid var(--danger);
 }
+
 .task-view-button.save-changes{
     border: 1px solid var(--info);
 }
@@ -109,7 +131,6 @@
 .task-view-button svg{
     width: 15px;
 }
-
 
 .completed-button{
     fill: var(--success);
@@ -159,11 +180,20 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 3px;
 }
 
 .add-log-form textarea {
     font-family: cursive;
     padding: 2px;
+    border: 1px solid #94B9FF;
+    border-radius: 5px;
+}
+
+.add-log-form input{
+    border: none;
+    padding:5px;
+    font-family: cursive;
 }
 
 /* ==========================
@@ -194,6 +224,20 @@
 ========================== */
 
 @media screen and (min-width: 1000px) {
+    .task-view {
+        align-items: center;
+    }
 
+    .task-view form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 50%;
+    }
 
+    .date-completed {
+        width: 7%;
+    }
 }

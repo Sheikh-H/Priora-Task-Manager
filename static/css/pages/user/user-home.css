@@ -99,6 +99,13 @@
     color: black;
 }
 
+.user-home-tasks-card.danger{
+    background-color: var(--danger);
+}
+.user-home-tasks-card.danger p{
+    color: black;
+}
+
 .hr-line-2{
     width: 100%;
 }

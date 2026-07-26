@@ -240,7 +240,7 @@ def all_tasks(user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ?;""",
+            """SELECT * FROM tasks WHERE user_id = ? and completed = 0;""",
             (user["user_id"],),
         )
         tasks = cursor.fetchall()
@@ -540,7 +540,7 @@ def get_all_tasks(user):
     cursor = connection.cursor()
     try:
         cursor.execute(
-            """SELECT * FROM tasks WHERE user_id = ? and completed = 0 ORDER BY due_date DESC, due_time DESC;""",
+            """SELECT * FROM tasks WHERE user_id = ? ORDER BY due_date ASC, due_time ASC;""",
             (user["user_id"],),
         )
         tasks = cursor.fetchall()
@@ -548,5 +548,33 @@ def get_all_tasks(user):
     except Exception as e:
         print(e)
         return False
+    finally:
+        connection.close()
+
+
+def search_for_tasks(user, search, date, completed):
+    user_id = user["user_id"]
+    connection = connect_database()
+    cursor = connection.cursor()
+    params = []
+    query = "SELECT * FROM tasks WHERE user_id = ?"
+    params.append(user_id)
+    if search:
+        query += " AND LOWER(title) LIKE ?"
+        params.append(f"%{search.lower()}%")
+    if date:
+        query += " AND due_date = ?"
+        params.append(date)
+    if completed:
+        query += " AND completed = ?"
+        params.append(completed)
+    query += ";"
+    try:
+        cursor.execute(query, params)
+        tasks = cursor.fetchall()
+        return tasks
+    except Exception as e:
+        print(e)
+        return None
     finally:
         connection.close()

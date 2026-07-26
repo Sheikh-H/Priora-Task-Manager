@@ -1,0 +1,76 @@
+.all-tasks-filters{
+    width: 100%;
+    display: flex;
+}
+
+.all-tasks-filters form{
+    width: 100%;
+    display: grid;
+    justify-content: space-evenly;
+    gap: 5px;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.all-tasks-filters form input{
+    width: 100%;
+    font-family: cursive;
+    border-radius: 5px;
+    border: none;
+    padding: 2px;
+    border-bottom: 1px solid #94B9FF;
+}
+
+
+.all-tasks-filters form select{
+    font-family: cursive;
+    border:none;
+    border-radius: 5px;
+    border-bottom: 1px solid #94B9FF;
+}
+
+.search-empty{
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.search-task-button{
+    border-radius: 5px;
+    display: flex;
+    font-family: curisve;
+    font-size: 1rem;;
+    justify-content: center;
+    align-items: center;
+    border:1px solid #94B9FF;
+}
+
+.search-task-button svg{
+    width: 15px;
+}
+
+
+
+/* ==========================
+   Tablet
+========================== */
+
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+    .search-empty {
+        width: 100%;
+        display: flex;
+        text-align: start;
+        justify-content: start;
+    }
+}
+
+
+/* ==========================
+   Desktop
+========================== */
+
+@media screen and (min-width: 1000px) {
+
+
+}
