@@ -2,7 +2,7 @@
 
 <p align="center">
   <b>A full-stack task management application built with Flask, SQLite, JavaScript, and modern web development practices.</b><br>
-  Designed as a portfolio project to demonstrate backend development, database design, security implementation, and structured application architecture.
+  Designed as a portfolio project to demonstrate backend development, database design, security implementation, and structured application architecture. This project is actively maintained and will continue to receive improvements as I expand my understanding of full-stack development.
 </p>
 
 ---
