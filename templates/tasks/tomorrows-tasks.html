@@ -13,7 +13,7 @@
     <div class="task-column">
       {% for task in tasks %}
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card">
+        <div class="user-home-tasks-card hidden-up">
           <form action="" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <input type="hidden" name="task-id" value="{{ task['task_id'] }}" />

@@ -4,7 +4,7 @@
   <div class="user-home-tasks-complete-grid">
     {% if tasks %} {% for task in tasks %}
     <a href="{{ url_for('task', task_id = task['task_id']) }}">
-      <div class="user-home-tasks-card success">
+      <div class="user-home-tasks-card hidden-up success">
         <form
           action="{{ url_for('task_complete', task_id = task['task_id']) }}"
           method="post"

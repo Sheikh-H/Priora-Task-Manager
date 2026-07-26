@@ -39,7 +39,7 @@
 
     <a href="{{ url_for('task', task_id = task['task_id']) }}">
       <div
-        class="user-home-tasks-card{% if task['completed'] == 1 %} success {% elif task['due_date'] < today %} danger {% endif %}"
+        class="user-home-tasks-card hidden-up {% if task['completed'] == 1 %} success {% elif task['due_date'] < today %} danger {% endif %}"
         data-url="{{ url_for('task', task_id=task['task_id']) }}"
       >
         <form

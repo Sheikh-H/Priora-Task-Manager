@@ -228,7 +228,10 @@ taskCards.forEach((card) => {
     if (event.target.closest("form")) {
       return;
     }
-
     window.location = card.dataset.url;
   });
+});
+
+taskCards.forEach((card, index) => {
+  card.style.transitionDelay = `${index * 100}ms`;
 });

@@ -30,7 +30,7 @@
     <div class="task-column">
       {% if overdue %} {% for task in overdue %}
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card overdue">
+        <div class="user-home-tasks-card overdue hidden-left">
           <form
             action="{{ url_for('task_complete', task_id = task['task_id']) }}"
             method="post"
@@ -58,7 +58,7 @@
       {% endif %} {% if todays %} {% for task in todays %}
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card">
+        <div class="user-home-tasks-card hidden-left">
           <form
             action="{{ url_for('task_complete', task_id = task['task_id']) }}"
             method="post"
@@ -100,7 +100,7 @@
       {% if tomorrows %} {% for task in tomorrows %}
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card">
+        <div class="user-home-tasks-card hidden-up">
           <form
             action="{{ url_for('task_complete', task_id = task['task_id']) }}"
             method="post"
@@ -140,7 +140,7 @@
       {% if upcoming %} {% for task in upcoming %}
 
       <a href="{{ url_for('task', task_id = task['task_id']) }}">
-        <div class="user-home-tasks-card">
+        <div class="user-home-tasks-card hidden-right">
           <form
             action="{{ url_for('task_complete', task_id = task['task_id']) }}"
             method="post"
