@@ -46,6 +46,8 @@ from datetime import timedelta, datetime
 from services.config import initialise
 from flask_session import Session
 from dotenv import load_dotenv
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import os
 
 load_dotenv()
@@ -73,6 +75,8 @@ Session(app)
 
 csrf = CSRFProtect(app)
 
+limiter = Limiter(key_func=get_remote_address)
+
 
 @app.after_request
 def security_headers(response):
@@ -99,6 +103,7 @@ def about():
 
 
 @app.route("/login", methods=["GET", "POST"])
+@limiter.limit("10 per hour", methods=["POST"])
 def login():
     if session.get("user-id"):
         return redirect(url_for("account"))
@@ -122,6 +127,7 @@ def login():
 
 
 @app.route("/register", methods=["GET", "POST"])
+@limiter.limit("5 per hour", methods=["POST"])
 def register():
     if session.get("user-id"):
         return redirect(url_for("account"))
@@ -155,6 +161,7 @@ def register():
 
 
 @app.route("/reset-password", methods=["GET", "POST"])
+@limiter.limit("5 per hour", methods=["POST"])
 def reset_password():
     title = "Password Reset"
     description = "Reset your password on Priora"
@@ -177,6 +184,7 @@ def reset_password():
 
 
 @app.route("/user/all-tasks", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def all_tasks():
@@ -194,6 +202,7 @@ def all_tasks():
 
 
 @app.route("/user/completed-tasks", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def completed_tasks():
@@ -204,6 +213,7 @@ def completed_tasks():
 
 
 @app.route("/user/incompleted-tasks", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def incomplete_tasks():
@@ -214,6 +224,7 @@ def incomplete_tasks():
 
 
 @app.route("/change-password", methods=["GET", "POST"])
+@limiter.limit("3 per hour", methods=["POST"])
 @login_required
 def change_password():
     title = "Change password"
@@ -233,27 +244,22 @@ def change_password():
 
 
 @app.route("/user/home", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def account():
     title = "Welcome Back!"
     user = find_user_by_id(session.get("user-id"))
-
     new_user = bool(user["new_user"])
-
     tasks = load_tasks(user)
-
     date = datetime.now().replace(microsecond=0).date()
-
     today = date
     tomorrow = date + timedelta(days=1)
     future = date + timedelta(days=2)
-
     todays = search_tasks_by_date(today, user)
     tomorrows = search_tasks_by_date(tomorrow, user)
     upcoming = search_upcoming_tasks(future, user)
     overdue = search_overdue_tasks(today, user)
-
     if request.method == "POST":
         task_id = request.form.get("task-id")
         update = mark_as_complete(task_id, user)
@@ -261,7 +267,6 @@ def account():
             flash(update, "success")
             return redirect(url_for("account"))
         return redirect(url_for("account"))
-
     return render_template(
         "user/home.html",
         title=title,
@@ -276,6 +281,7 @@ def account():
 
 
 @app.route("/user/tasks/add-task", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def add_task():
@@ -295,27 +301,24 @@ def add_task():
         if not task_title:
             flash("Enter a task title!", "error")
             return redirect(url_for("add_task"))
-
         if len(task_title) > 20:
             flash("Title must be under 20 characters!", "error")
             return redirect(url_for("add_task"))
-
         task["title"] = task_title
         task["description"] = task_description
         task["due_date"] = f"{due_date}"
         task["due_time"] = f"{due_time}"
-
         success = add_new_task(user, **task)
         if success:
             flash("Task added!", "success")
             return redirect(url_for("account"))
         flash("Unable to add task!", "error")
         return redirect(url_for("add_task"))
-
     return render_template("tasks/add-task.html", title=title)
 
 
 @app.route("/user/tasks/tomorrow", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def tomorrows_tasks():
@@ -331,6 +334,7 @@ def tomorrows_tasks():
 
 
 @app.route("/user/task/<int:task_id>", methods=["GET", "POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def task(task_id):
@@ -361,6 +365,7 @@ def all_logs(task_id):
 
 
 @app.route("/user/task/<int:task_id>/complete", methods=["POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def task_complete(task_id):
@@ -379,6 +384,7 @@ def task_complete(task_id):
 
 
 @app.route("/user/task/<int:task_id>/add-log", methods=["POST"])
+@limiter.limit("100 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def add_task_log(task_id):
@@ -393,6 +399,7 @@ def add_task_log(task_id):
 
 
 @app.route("/user/task/<int:task_id>/delete", methods=["post"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def delete_task(task_id):
@@ -406,6 +413,7 @@ def delete_task(task_id):
 
 
 @app.route("/user/task/<int:task_id>/update", methods=["POST"])
+@limiter.limit("50 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def update_task(task_id):
@@ -447,6 +455,7 @@ def update_task(task_id):
 
 
 @app.route("/logout", methods=["POST"])
+@limiter.limit("5 per hour", methods=["POST"])
 @login_required
 @password_reset_required
 def logout():
@@ -487,6 +496,10 @@ def sitemap():
 def csrf_error(error):
     return render_template("error/400.html", reason=error.description), 400
 
+
+@app.errorhandler(429)
+def max_requests(error):
+    return render_template("error/429.html"), 429
 
 @app.errorhandler(403)
 def forbidden(error):
