@@ -75,7 +75,7 @@ Session(app)
 
 csrf = CSRFProtect(app)
 
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=get_remote_address, app=app)
 
 
 @app.after_request
